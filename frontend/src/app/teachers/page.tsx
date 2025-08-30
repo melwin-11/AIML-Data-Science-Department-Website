@@ -21,6 +21,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input"
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string }
@@ -136,25 +147,33 @@ export default function TeachersPage() {
         <h1 className="text-4xl font-bold mb-6">AI&DS Faculty</h1>
 
         <div className="w-full max-w-4xl">
-          <Table>
-            <TableCaption>Faculty Members</TableCaption>
+            <Card>
+                <CardHeader>
+                    <CardTitle className>AI&DS Faculty Members</CardTitle>
+                    <CardDescription>Find your respective faculty member</CardDescription>
+                    <Input type="text" placeholder="Search faculty..." className="mt-4"/>
+                </CardHeader>
+                <CardContent>
+                    <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>Designation</TableHead>
-                <TableHead>Email</TableHead>
+                <TableHead>Specialization</TableHead>
+                <TableHead>Contact</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {facultyData.map((faculty, index) => (
                 <TableRow key={index}>
                   <TableCell>{faculty.name}</TableCell>
-                  <TableCell>{faculty.department}</TableCell>
                   <TableCell>{faculty.specialization}</TableCell>
+                  <TableCell><Button>View Profile</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+                </CardContent>
+            </Card>
         </div>
       </main>
     </div>
