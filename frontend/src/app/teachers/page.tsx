@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";  // ✅ Import useState
 import Image from "next/image";
 import Link from "next/link";
 import facultyData from "@/data/faculty.json";  // ✅ Import JSON
@@ -22,7 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input";
 import {
   Card,
   CardAction,
@@ -32,6 +32,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string }
@@ -54,10 +55,20 @@ const ListItem = React.forwardRef<
   );
 });
 ListItem.displayName = "ListItem";
+
 export default function TeachersPage() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // ✅ Proper filtering with search
+  const filteredFaculty = searchQuery
+    ? facultyData.filter((faculty) =>
+        faculty.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : facultyData;
+
   return (
     <div className="landing-page">
-      {/* Header (unchanged) */}
+      {/* Header */}
       <header className="p-4 shadow-md flex items-center bg-[#0A1A2F] text-white">
         <div className="relative w-40 h-16 mr-10">
           <Image
@@ -71,73 +82,73 @@ export default function TeachersPage() {
         <NavigationMenu className="ml-8">
           <NavigationMenuList>
             <NavigationMenuItem>
-        <NavigationMenuTrigger
-          className="px-4 py-2 text-white bg-transparent shadow-none border-none hover:bg-transparent hover:text-gray-300 focus:outline-none"
-        >
-          Home
-        </NavigationMenuTrigger>
-        <NavigationMenuContent>
-          <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
-            <ListItem href="/about" title="About Us">
-              Our department was founded in 2025.
-            </ListItem>
-            <ListItem href="/curriculum" title="Curriculum">
-              The curriculum set for the department.
-            </ListItem>
-            <ListItem href="/achievements" title="Achievements">
-              Explore the department’s achievements and milestones.
-            </ListItem>
-            <ListItem href="/documents" title="Documents">
-              Access important department documents and resources.
-            </ListItem>
-          </ul>
-        </NavigationMenuContent>
-      </NavigationMenuItem>
+              <NavigationMenuTrigger
+                className="px-4 py-2 text-white bg-transparent shadow-none border-none hover:bg-transparent hover:text-gray-300 focus:outline-none"
+              >
+                Home
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
+                  <ListItem href="/about" title="About Us">
+                    Our department was founded in 2025.
+                  </ListItem>
+                  <ListItem href="/curriculum" title="Curriculum">
+                    The curriculum set for the department.
+                  </ListItem>
+                  <ListItem href="/achievements" title="Achievements">
+                    Explore the department’s achievements and milestones.
+                  </ListItem>
+                  <ListItem href="/documents" title="Documents">
+                    Access important department documents and resources.
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
 
-      {/* Other menu items stay the same */}
-      <NavigationMenuItem>
-        <Link href="/lab" legacyBehavior passHref>
-          <NavigationMenuLink className="px-4 py-2 text-white">
-            Lab
-          </NavigationMenuLink>
-        </Link>
-      </NavigationMenuItem>
+            {/* Other menu items */}
+            <NavigationMenuItem>
+              <Link href="/lab" legacyBehavior passHref>
+                <NavigationMenuLink className="px-4 py-2 text-white">
+                  Lab
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
 
-      <NavigationMenuItem>
-        <NavigationMenuLink
-          href="../Me/Faculty/MainFrame/index.html"
-          className="px-4 py-2 text-white"
-        >
-          Faculty
-        </NavigationMenuLink>
-      </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                href="../Me/Faculty/MainFrame/index.html"
+                className="px-4 py-2 text-white"
+              >
+                Faculty
+              </NavigationMenuLink>
+            </NavigationMenuItem>
 
-      <NavigationMenuItem>
-        <NavigationMenuLink
-          href="../Me/Student/MainFrame/index.html"
-          className="px-4 py-2 text-white"
-        >
-          Students
-        </NavigationMenuLink>
-      </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                href="../Me/Student/MainFrame/index.html"
+                className="px-4 py-2 text-white"
+              >
+                Students
+              </NavigationMenuLink>
+            </NavigationMenuItem>
 
-      <NavigationMenuItem>
-        <NavigationMenuLink
-          href="../Tom/Student's Dashboard/index.html"
-          className="px-4 py-2 text-white"
-        >
-          Attendance
-        </NavigationMenuLink>
-      </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                href="../Tom/Student's Dashboard/index.html"
+                className="px-4 py-2 text-white"
+              >
+                Attendance
+              </NavigationMenuLink>
+            </NavigationMenuItem>
 
-      <NavigationMenuItem>
-        <NavigationMenuLink
-          href="../Sania/Projects/index.html"
-          className="px-4 py-2 text-white"
-        >
-          Projects
-        </NavigationMenuLink>
-      </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                href="../Sania/Projects/index.html"
+                className="px-4 py-2 text-white"
+              >
+                Projects
+              </NavigationMenuLink>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </header>
@@ -147,33 +158,43 @@ export default function TeachersPage() {
         <h1 className="text-4xl font-bold mb-6">AI&DS Faculty</h1>
 
         <div className="w-full max-w-4xl">
-            <Card>
-                <CardHeader>
-                    <CardTitle className>AI&DS Faculty Members</CardTitle>
-                    <CardDescription>Find your respective faculty member</CardDescription>
-                    <Input type="text" placeholder="Search faculty..." className="mt-4"/>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Specialization</TableHead>
-                <TableHead>Contact</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {facultyData.map((faculty, index) => (
-                <TableRow key={index}>
-                  <TableCell>{faculty.name}</TableCell>
-                  <TableCell>{faculty.specialization}</TableCell>
-                  <TableCell><Button>View Profile</Button></TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-                </CardContent>
-            </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>AI&DS Faculty Members</CardTitle>
+              <CardDescription>
+                Find your respective faculty member
+              </CardDescription>
+              <Input
+                type="text"
+                placeholder="Search faculty..."
+                className="mt-4"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Specialization</TableHead>
+                    <TableHead>Contact</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredFaculty.map((faculty, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{faculty.name}</TableCell>
+                      <TableCell>{faculty.specialization}</TableCell>
+                      <TableCell>
+                        <Button>View Profile</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
         </div>
       </main>
     </div>
