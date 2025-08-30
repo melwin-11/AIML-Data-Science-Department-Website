@@ -72,8 +72,7 @@ export default function LandingPage() {
       alt: "Christ University Campus",
     },
   ];
-
-  const [api, setApi] = React.useState<CarouselApi>();
+    const [api, setApi] = React.useState<CarouselApi>();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [current, setCurrent] = React.useState(0);
 
@@ -194,7 +193,7 @@ export default function LandingPage() {
 
       {/* Hero Section with Carousel */}
       <section className="my-10 flex flex-col items-center">
-  <Carousel className="w-full max-w-6xl">   {/* wider carousel */}
+  <Carousel className="w-full max-w-6xl" setApi={setApi}>   {/* wider carousel */}
     <CarouselContent>
       {carouselImages.map((image, index) => (
         <CarouselItem 
