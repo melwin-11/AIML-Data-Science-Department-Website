@@ -8,6 +8,8 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuContent,
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
   Carousel,
@@ -19,30 +21,54 @@ import {
 } from "@/components/ui/carousel";
 import { useEffect, useRef } from "react";
 
+// Add ListItem component
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a"> & { title: string }
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
+
 export default function LandingPage() {
   const carouselImages = [
     {
-      url: "/MOU_with_Mantis.jpg", 
+      url: "/MOU_with_Mantis.jpg",
       alt: "Faculty",
     },
     {
-      url: "/Christ_Incubation_Cell_Ceremony.jpg", 
-      alt: "Christ University Campus",
-    },
-        {
-      url: "/CU_Chandraksh.jpg", 
+      url: "/Christ_Incubation_Cell_Ceremony.jpg",
       alt: "Christ University Campus",
     },
     {
-      url: "/CU_Yes_Submit.jpg", 
+      url: "/CU_Chandraksh.jpg",
       alt: "Christ University Campus",
     },
     {
-      url: "/CU_Magnificat_24.jpg", 
+      url: "/CU_Yes_Submit.jpg",
       alt: "Christ University Campus",
     },
     {
-      url: "/CUK_Sports_Day.jpg", 
+      url: "/CU_Magnificat_24.jpg",
+      alt: "Christ University Campus",
+    },
+    {
+      url: "/CUK_Sports_Day.jpg",
       alt: "Christ University Campus",
     },
   ];
@@ -78,92 +104,118 @@ export default function LandingPage() {
   return (
     <div className="landing-page">
       {/* Header */}
-      <header className="p-4 shadow-md flex justify-between items-center bg-[#0A1A2F] text-white">
-        {/* Logo instead of text */}
-        <div className="relative w-40 h-16">
-          <Image
-            src="/CULOGO25_White.png"
-            alt="Christ University Logo"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
+      <header className="p-4 shadow-md flex items-center bg-[#0A1A2F] text-white">
+  {/* Logo instead of text */}
+  <div className="relative w-40 h-16 mr-10">
+    <Image
+      src="/CULOGO25_White.png"
+      alt="Christ University Logo"
+      fill
+      className="object-contain"
+      priority
+    />
+  </div>
 
-        {/* shadcn Navigation Menu */}
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className="px-4 py-2 text-white">
-                  Home
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/lab" legacyBehavior passHref>
-                <NavigationMenuLink className="px-4 py-2 text-white">
-                  Lab
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="../Me/Faculty/MainFrame/index.html"
-                className="px-4 py-2 text-white"
-              >
-                Faculty
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="../Me/Student/MainFrame/index.html"
-                className="px-4 py-2 text-white"
-              >
-                Students
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="../Tom/Student's Dashboard/index.html"
-                className="px-4 py-2 text-white"
-              >
-                Attendance
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="../Sania/Projects/index.html"
-                className="px-4 py-2 text-white"
-              >
-                Projects
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </header>
+  {/* shadcn Navigation Menu */}
+  <NavigationMenu className="ml-8">  {/* 👈 shifted slightly to left */}
+    <NavigationMenuList>
+      {/* ✅ Home with 4 clickable dropdown boxes */}
+      <NavigationMenuItem>
+        <NavigationMenuTrigger
+          className="px-4 py-2 text-white bg-transparent shadow-none border-none hover:bg-transparent hover:text-gray-300 focus:outline-none"
+        >
+          Home
+        </NavigationMenuTrigger>
+        <NavigationMenuContent>
+          <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
+            <ListItem href="/about" title="About Us">
+              Our department was founded in 2025.
+            </ListItem>
+            <ListItem href="/curriculum" title="Curriculum">
+              The curriculum set for the department.
+            </ListItem>
+            <ListItem href="/achievements" title="Achievements">
+              Explore the department’s achievements and milestones.
+            </ListItem>
+            <ListItem href="/documents" title="Documents">
+              Access important department documents and resources.
+            </ListItem>
+          </ul>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+
+      {/* Other menu items stay the same */}
+      <NavigationMenuItem>
+        <Link href="/lab" legacyBehavior passHref>
+          <NavigationMenuLink className="px-4 py-2 text-white">
+            Lab
+          </NavigationMenuLink>
+        </Link>
+      </NavigationMenuItem>
+
+      <NavigationMenuItem>
+        <NavigationMenuLink
+          href="../Me/Faculty/MainFrame/index.html"
+          className="px-4 py-2 text-white"
+        >
+          Faculty
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+
+      <NavigationMenuItem>
+        <NavigationMenuLink
+          href="../Me/Student/MainFrame/index.html"
+          className="px-4 py-2 text-white"
+        >
+          Students
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+
+      <NavigationMenuItem>
+        <NavigationMenuLink
+          href="../Tom/Student's Dashboard/index.html"
+          className="px-4 py-2 text-white"
+        >
+          Attendance
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+
+      <NavigationMenuItem>
+        <NavigationMenuLink
+          href="../Sania/Projects/index.html"
+          className="px-4 py-2 text-white"
+        >
+          Projects
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+    </NavigationMenuList>
+  </NavigationMenu>
+</header>
 
       {/* Hero Section with Carousel */}
-      <section className="my-2 flex flex-col items-center gap-6">
-        <Carousel className="w-full max-w-8xl">
-          <CarouselContent>
-            {carouselImages.map((image, index) => (
-              <CarouselItem key={index}>
-                <div className="relative w-full h-[500px]">
-                  <Image
-                    src={image.url}
-                    alt={image.alt}
-                    fill
-                    className="object-cover "
-                  />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="ml-4" />
-          <CarouselNext className="mr-4" />
-        </Carousel>
-      </section>
+      <section className="my-10 flex flex-col items-center">
+  <Carousel className="w-full max-w-6xl">   {/* wider carousel */}
+    <CarouselContent>
+      {carouselImages.map((image, index) => (
+        <CarouselItem 
+          key={index} 
+          className="flex justify-center basis-auto"  // don’t shrink
+        >
+          <div className="relative w-[900px] h-[600px] flex justify-center items-center">
+            <Image
+              src={image.url}
+              alt={image.alt}
+              fill
+              className="object-contain rounded-lg"
+            />
+          </div>
+        </CarouselItem>
+      ))}
+    </CarouselContent>
+    <CarouselPrevious className="ml-4" />
+    <CarouselNext className="mr-4" />
+  </Carousel>
+</section>
 
       {/* Vision, Mission, Note, Curriculum, Contact */}
       <main className="px-6 space-y-8 max-w-4xl mx-auto">
