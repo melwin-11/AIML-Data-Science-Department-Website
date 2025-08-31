@@ -172,15 +172,6 @@ export default function LandingPage() {
 
       <NavigationMenuItem>
         <NavigationMenuLink
-          href="../Tom/Student's Dashboard/index.html"
-          className="px-4 py-2 text-white"
-        >
-          Attendance
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-
-      <NavigationMenuItem>
-        <NavigationMenuLink
           href="../Sania/Projects/index.html"
           className="px-4 py-2 text-white"
         >
@@ -300,20 +291,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section>
-          <h2 className="text-xl font-bold">Curriculum</h2>
-          <p>
-            Explore our comprehensive curriculum designed to equip students with
-            the knowledge and skills needed to excel in the fields of Artificial
-            Intelligence, Machine Learning, and Data Science.
-          </p>
-          <a
-            href="./Curriculum/index.html"
-            className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700"
-          >
-            View Curriculum
-          </a>
-        </section>
 
         <section className="grid md:grid-cols-2 gap-8">
           {/* University Info */}

@@ -42,7 +42,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";  
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -140,15 +139,6 @@ export default function TeachersPage() {
                 className="px-4 py-2 text-white"
               >
                 Students
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="../Tom/Student's Dashboard/index.html"
-                className="px-4 py-2 text-white"
-              >
-                Attendance
               </NavigationMenuLink>
             </NavigationMenuItem>
 
