@@ -1,12 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Confetti, type ConfettiRef } from "@/components/magicui/confetti";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+} from "@/components/ui/navigation-menu";
 
 // Attendance & Grades Data
 export const AttendanceChartData = [
@@ -43,10 +52,10 @@ export const CurrentSemesterGrades = [
 ];
 
 export default function StudentPage() {
+  const router = useRouter();
   const confettiRef = useRef<ConfettiRef>(null);
   const [showAlert, setShowAlert] = useState(false);
 
-  // Calculate overall attendance
   const overallAttendance = parseFloat(
     (
       CurrentSemesterAttendance.reduce(
@@ -56,7 +65,6 @@ export default function StudentPage() {
     ).toFixed(2)
   );
 
-  // Show alert on page load if attendance >= 85
   useEffect(() => {
     if (overallAttendance >= 85) {
       setShowAlert(true);
@@ -64,9 +72,33 @@ export default function StudentPage() {
   }, []);
 
   return (
-    <div className="p-4 relative">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-slate-900">
+      {/* Header */}
+      <div className="w-full bg-white dark:bg-slate-800 px-6 py-3 flex items-center justify-between shadow-md">
+        <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          Welcome Melwin Robinson, 2362112
+        </div>
 
-      {/* Centered Alert at top */}
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="px-3 py-1 text-sm bg-gray-100 dark:bg-slate-700 rounded hover:bg-gray-200 dark:hover:bg-slate-600">
+                Options
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <NavigationMenuLink
+                  onClick={() => router.push("/")}
+                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
+                >
+                  Sign out
+                </NavigationMenuLink>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
+
+      {/* Alert */}
       {showAlert && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-xs">
           <Alert className="relative text-center text-sm p-4 rounded-lg shadow-md flex flex-col items-center gap-3 bg-white dark:bg-slate-800">
@@ -77,7 +109,6 @@ export default function StudentPage() {
               Your overall attendance is <strong>{overallAttendance}%</strong> — enough to write the upcoming exams.
             </AlertDescription>
 
-            {/* Confetti inside alert (pointer-events-none to allow clicks) */}
             <Confetti
               ref={confettiRef}
               className="absolute left-0 top-0 w-full h-full z-0 pointer-events-none"
@@ -101,119 +132,122 @@ export default function StudentPage() {
         </div>
       )}
 
-      {/* Main Confetti overlay for full page if needed */}
+      {/* Confetti overlay for full page */}
       <Confetti ref={confettiRef} className="absolute left-0 top-0 w-full h-full z-0 pointer-events-none" />
 
-      <Tabs defaultValue="students">
-        <TabsList>
-          <TabsTrigger value="students">Attendance</TabsTrigger>
-          <TabsTrigger value="performance">Grade</TabsTrigger>
-        </TabsList>
+      {/* Main content */}
+      <div className="p-4 relative flex-1">
+        <Tabs defaultValue="students">
+          <TabsList>
+            <TabsTrigger value="students">Attendance</TabsTrigger>
+            <TabsTrigger value="performance">Grade</TabsTrigger>
+          </TabsList>
 
-        {/* Attendance Tab */}
-        <TabsContent value="students">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-center">Attendance</CardTitle>
-              <CardDescription className="text-center">
-                Track your attendance over the course of the semester
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="flex-1 min-w-[300px]">
-                  <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={AttendanceChartData} margin={{ top: 20, right: 0, bottom: 20, left: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="Semester" />
-                      <YAxis domain={[90, 100]} />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="Attendance" stroke="#0A1A2F" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
+          {/* Attendance Tab */}
+          <TabsContent value="students">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-center">Attendance</CardTitle>
+                <CardDescription className="text-center">
+                  Track your attendance over the course of the semester
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="flex-1 min-w-[300px]">
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart data={AttendanceChartData} margin={{ top: 20, right: 0, bottom: 20, left: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="Semester" />
+                        <YAxis domain={[90, 100]} />
+                        <Tooltip />
+                        <Line type="monotone" dataKey="Attendance" stroke="#0A1A2F" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
 
-                <div className="flex-1 overflow-x-auto min-w-[300px]">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Course</TableHead>
-                        <TableHead>Total Classes Present</TableHead>
-                        <TableHead>Total Classes Conducted</TableHead>
-                        <TableHead>Attendance</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {CurrentSemesterAttendance.map((course, idx) => (
-                        <TableRow key={idx}>
-                          <TableCell>{course.Course}</TableCell>
-                          <TableCell>{course.TotalClassesPresent}</TableCell>
-                          <TableCell>{course.TotalClassesConducted}</TableCell>
-                          <TableCell>{course.Attendance}</TableCell>
+                  <div className="flex-1 overflow-x-auto min-w-[300px]">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Course</TableHead>
+                          <TableHead>Total Classes Present</TableHead>
+                          <TableHead>Total Classes Conducted</TableHead>
+                          <TableHead>Attendance</TableHead>
                         </TableRow>
-                      ))}
-                      <TableRow>
-                        <TableCell><strong>Overall Attendance</strong></TableCell>
-                        <TableCell colSpan={3}>{overallAttendance}%</TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Grades Tab */}
-        <TabsContent value="performance">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-center">Grades</CardTitle>
-              <CardDescription className="text-center">
-                Track your grades over the course of the semester
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="flex-1 min-w-[300px]">
-                  <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={GardesChartData} margin={{ top: 20, right: 0, bottom: 20, left: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="Semester" />
-                      <YAxis domain={[3, 4]} />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="CGPA" stroke="#0A1A2F" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-
-                <div className="flex-1 overflow-x-auto min-w-[300px]">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Course</TableHead>
-                        <TableHead>CIA-1</TableHead>
-                        <TableHead>MSE</TableHead>
-                        <TableHead>CIA-3</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {CurrentSemesterGrades.map((course, idx) => (
-                        <TableRow key={idx}>
-                          <TableCell>{course.Course}</TableCell>
-                          <TableCell>{course.CIA_1}</TableCell>
-                          <TableCell>{course.MSE}</TableCell>
-                          <TableCell>{course.CIA_3}</TableCell>
+                      </TableHeader>
+                      <TableBody>
+                        {CurrentSemesterAttendance.map((course, idx) => (
+                          <TableRow key={idx}>
+                            <TableCell>{course.Course}</TableCell>
+                            <TableCell>{course.TotalClassesPresent}</TableCell>
+                            <TableCell>{course.TotalClassesConducted}</TableCell>
+                            <TableCell>{course.Attendance}</TableCell>
+                          </TableRow>
+                        ))}
+                        <TableRow>
+                          <TableCell><strong>Overall Attendance</strong></TableCell>
+                          <TableCell colSpan={3}>{overallAttendance}%</TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableBody>
+                    </Table>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Grades Tab */}
+          <TabsContent value="performance">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-center">Grades</CardTitle>
+                <CardDescription className="text-center">
+                  Track your grades over the course of the semester
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="flex-1 min-w-[300px]">
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart data={GardesChartData} margin={{ top: 20, right: 0, bottom: 20, left: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="Semester" />
+                        <YAxis domain={[3, 4]} />
+                        <Tooltip />
+                        <Line type="monotone" dataKey="CGPA" stroke="#0A1A2F" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  <div className="flex-1 overflow-x-auto min-w-[300px]">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Course</TableHead>
+                          <TableHead>CIA-1</TableHead>
+                          <TableHead>MSE</TableHead>
+                          <TableHead>CIA-3</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {CurrentSemesterGrades.map((course, idx) => (
+                          <TableRow key={idx}>
+                            <TableCell>{course.Course}</TableCell>
+                            <TableCell>{course.CIA_1}</TableCell>
+                            <TableCell>{course.MSE}</TableCell>
+                            <TableCell>{course.CIA_3}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 }
