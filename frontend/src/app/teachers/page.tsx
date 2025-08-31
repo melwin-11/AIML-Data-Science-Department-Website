@@ -32,6 +32,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";  
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -187,7 +198,53 @@ export default function TeachersPage() {
                       <TableCell>{faculty.name}</TableCell>
                       <TableCell>{faculty.specialization}</TableCell>
                       <TableCell>
-                        <Button>View Profile</Button>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button>View Profile</Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                              <DialogTitle>{faculty.name}</DialogTitle>
+                              <DialogDescription>
+                                Department: {faculty.department}
+                              </DialogDescription>
+                            </DialogHeader>
+                            <div className="flex flex-col gap-2">
+                              <p>
+                                <strong>Cubicle Number:</strong>{" "}
+                                {faculty.Cubicle}
+                              </p>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <p>
+                                <strong>ORCID:</strong>{" "}
+                                <a href={faculty.ORCID} target="_blank" rel="noopener noreferrer" className="inline-block">
+                                <Button>ORCID ↗</Button>
+                                </a>
+                              </p>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <p>
+                                <strong>Google Scholar:</strong>{" "}
+                                <a href={faculty.GoogleScholar} target="_blank" rel="noopener noreferrer" className="inline-block">
+                                <Button>Google Scholar ↗</Button>
+                                </a>
+                              </p>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <p>
+                                <strong>ResearchGate:</strong>{" "}
+                                <a href={faculty.ResearchGate} target="_blank" rel="noopener noreferrer" className="inline-block">
+                                <Button>Research Gate ↗</Button>
+                                </a>
+                              </p>
+                            </div>
+                            <DialogFooter className="sm:justify-start">
+                              <DialogClose asChild>
+                              </DialogClose>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
                       </TableCell>
                     </TableRow>
                   ))}
