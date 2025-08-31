@@ -123,7 +123,7 @@ export default function LandingPage() {
         <NavigationMenuTrigger
           className="px-4 py-2 text-white bg-transparent shadow-none border-none hover:bg-transparent hover:text-gray-300 focus:outline-none"
         >
-          Home
+          <Link href='/'>Home</Link>
         </NavigationMenuTrigger>
         <NavigationMenuContent>
           <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
@@ -153,11 +153,10 @@ export default function LandingPage() {
       </NavigationMenuItem>
 
       <NavigationMenuItem>
-        <NavigationMenuLink
-          href="../Me/Faculty/MainFrame/index.html"
-          className="px-4 py-2 text-white"
-        >
+        <NavigationMenuLink asChild>
+          <Link href="/teachers" className="px-4 py-2 text-white">
           Faculty
+          </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
 
