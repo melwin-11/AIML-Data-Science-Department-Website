@@ -206,26 +206,8 @@ export default function TeachersPage() {
                             </div>
                             <div className="flex flex-col gap-2">
                               <p>
-                                <strong>ORCID:</strong>{" "}
-                                <a href={faculty.ORCID} target="_blank" rel="noopener noreferrer" className="inline-block">
-                                <Button>ORCID ↗</Button>
-                                </a>
-                              </p>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <p>
-                                <strong>Google Scholar:</strong>{" "}
-                                <a href={faculty.GoogleScholar} target="_blank" rel="noopener noreferrer" className="inline-block">
-                                <Button>Google Scholar ↗</Button>
-                                </a>
-                              </p>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <p>
-                                <strong>ResearchGate:</strong>{" "}
-                                <a href={faculty.ResearchGate} target="_blank" rel="noopener noreferrer" className="inline-block">
-                                <Button>Research Gate ↗</Button>
-                                </a>
+                                <strong>Email:</strong>{" "}
+                                {faculty.Email}
                               </p>
                             </div>
                             <DialogFooter className="sm:justify-start">
