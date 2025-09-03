@@ -83,14 +83,38 @@ export default function StudentPage() {
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="px-3 py-1 text-sm bg-gray-100 dark:bg-slate-700 rounded hover:bg-gray-200 dark:hover:bg-slate-600">
-                Options
+                Melwin Robinson 2362112
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <NavigationMenuLink
                   onClick={() => router.push("/")}
                   className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
                 >
-                  Sign out
+                  Profile
+                </NavigationMenuLink>
+                <NavigationMenuLink
+                  onClick={() => router.push("/")}
+                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
+                >
+                  Private Files
+                </NavigationMenuLink>
+                <NavigationMenuLink
+                  onClick={() => router.push("/")}
+                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
+                >
+                  Calender
+                </NavigationMenuLink>
+                <NavigationMenuLink
+                  onClick={() => router.push("/")}
+                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
+                >
+                  Messages
+                </NavigationMenuLink>
+                <NavigationMenuLink
+                  onClick={() => router.push("./")}
+                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
+                >
+                  Sign-out
                 </NavigationMenuLink>
               </NavigationMenuContent>
             </NavigationMenuItem>

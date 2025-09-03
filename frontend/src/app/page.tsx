@@ -46,33 +46,11 @@ const ListItem = React.forwardRef<
 ListItem.displayName = "ListItem";
 
 export default function LandingPage() {
-  const carouselImages = [
-    {
-      url: "/MOU_with_Mantis.jpg",
-      alt: "Faculty",
-    },
-    {
-      url: "/Christ_Incubation_Cell_Ceremony.jpg",
-      alt: "Christ University Campus",
-    },
-    {
-      url: "/CU_Chandraksh.jpg",
-      alt: "Christ University Campus",
-    },
-    {
-      url: "/CU_Yes_Submit.jpg",
-      alt: "Christ University Campus",
-    },
-    {
-      url: "/CU_Magnificat_24.jpg",
-      alt: "Christ University Campus",
-    },
-    {
-      url: "/CUK_Sports_Day.jpg",
-      alt: "Christ University Campus",
-    },
-  ];
-    const [api, setApi] = React.useState<CarouselApi>();
+  const carouselImages = Array.from({ length: 43 }, (_, i) => (
+  {
+    url: `/CU_EVENT (${i + 1}).jpg`,
+  }));
+  const [api, setApi] = React.useState<CarouselApi>();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [current, setCurrent] = React.useState(0);
 
@@ -162,7 +140,7 @@ export default function LandingPage() {
 
       <NavigationMenuItem>
         <NavigationMenuLink
-          href="../Me/Student/MainFrame/index.html"
+          href="/login"
           className="px-4 py-2 text-white"
         >
           Students
@@ -185,22 +163,22 @@ export default function LandingPage() {
       <section className="my-10 flex flex-col items-center">
   <Carousel className="w-full max-w-6xl" setApi={setApi}>   {/* wider carousel */}
     <CarouselContent>
-      {carouselImages.map((image, index) => (
-        <CarouselItem 
-          key={index} 
-          className="flex justify-center basis-auto"  // don’t shrink
-        >
-          <div className="relative w-[900px] h-[600px] flex justify-center items-center">
-            <Image
-              src={image.url}
-              alt={image.alt}
-              fill
-              className="object-contain rounded-lg"
-            />
-          </div>
-        </CarouselItem>
-      ))}
-    </CarouselContent>
+  {Array.from({ length: 43 }, (_, i) => (
+    <CarouselItem
+      key={i}
+      className="flex justify-center basis-auto" // don’t shrink
+    >
+      <div className="relative w-[900px] h-[600px] flex justify-center items-center">
+        <Image
+          src={`/CU_EVENT (${i + 1}).jpg`}
+          alt={`CU Event ${i + 1}`}
+          fill
+          className="object-contain rounded-lg"
+        />
+      </div>
+    </CarouselItem>
+  ))}
+</CarouselContent>
     <CarouselPrevious className="ml-4" />
     <CarouselNext className="mr-4" />
   </Carousel>
