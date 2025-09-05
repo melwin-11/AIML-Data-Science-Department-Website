@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";  // ✅ Import useState
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import facultyData from "@/data/faculty.json";  // ✅ Import JSON
@@ -68,13 +68,31 @@ ListItem.displayName = "ListItem";
 
 export default function TeachersPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [labs, setLabs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // ✅ Proper filtering with search
-  const filteredFaculty = searchQuery
-    ? facultyData.filter((faculty) =>
-        faculty.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : facultyData;
+  // Fetch labs from API
+  useEffect(() => {
+    async function fetchLabs() {
+      try {
+        const res = await fetch("http://localhost:5000/labs");
+        const data = await res.json();
+        setLabs(data);
+      } catch (err) {
+        setLabs([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchLabs();
+  }, []);
+
+  // Filter labs: show only matches when searching, else show all
+  const filteredLabs = React.useMemo(() => {
+    if (!searchQuery) return labs;
+    const lower = searchQuery.toLowerCase();
+    return labs.filter((lab) => lab.name.toLowerCase().includes(lower));
+  }, [labs, searchQuery]);
 
   return (
     <div className="landing-page">
@@ -95,7 +113,7 @@ export default function TeachersPage() {
               <NavigationMenuTrigger
                 className="px-4 py-2 text-white bg-transparent shadow-none border-none hover:bg-transparent hover:text-gray-300 focus:outline-none"
               >
-               <Link href='/'>Home</Link>
+                <Link href="/">Home</Link>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
@@ -118,19 +136,17 @@ export default function TeachersPage() {
             {/* Other menu items */}
             <NavigationMenuItem>
               <Link href="/lab" legacyBehavior passHref>
-                <NavigationMenuLink className="px-4 py-2 text-white">
-                  Lab
-                </NavigationMenuLink>
+                <NavigationMenuLink className="px-4 py-2 text-white">Lab</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
 
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link href="/teachers" className="px-4 py-2 text-white">
-          Faculty
-          </Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/teachers" className="px-4 py-2 text-white">
+                  Faculty
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
 
             <NavigationMenuItem>
               <NavigationMenuLink
@@ -155,76 +171,50 @@ export default function TeachersPage() {
 
       {/* Main Content */}
       <main className="flex flex-col items-center p-4">
-        <h1 className="text-4xl font-bold mb-6">AI&DS Faculty</h1>
-
-        <div className="w-full max-w-4xl">
-          <Card>
-            <CardHeader>
-              <CardTitle>AI&DS Faculty Members</CardTitle>
-              <CardDescription>
-                Find your respective faculty member
-              </CardDescription>
-              <Input
-                type="text"
-                placeholder="Search faculty..."
-                className="mt-4"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </CardHeader>
-            <CardContent>
+        <h1 className="text-4xl font-bold mb-5">LabAtlas</h1>
+        <Card>
+          <CardHeader>
+            <CardTitle>LabAtlas - Your Digital Compass for Labs</CardTitle>
+            <CardDescription>
+              Find and explore all labs in the department with ease.
+            </CardDescription>
+            <Input
+              type="text"
+              placeholder="Search for Labs ..."
+              className="mt-4"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Specialization</TableHead>
-                    <TableHead>Contact</TableHead>
+                    <TableHead>Lab Name</TableHead>
+                    <TableHead>Location</TableHead>
+                    <TableHead>Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredFaculty.map((faculty, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{faculty.name}</TableCell>
-                      <TableCell>{faculty.specialization}</TableCell>
-                      <TableCell>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button>View Profile</Button>
-                          </DialogTrigger>
-                          <DialogContent className="sm:max-w-md">
-                            <DialogHeader>
-                              <DialogTitle>{faculty.name}</DialogTitle>
-                              <DialogDescription>
-                                Department: {faculty.department}
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="flex flex-col gap-2">
-                              <p>
-                                <strong>Cubicle Number:</strong>{" "}
-                                {faculty.Cubicle}
-                              </p>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <p>
-                                <strong>Email:</strong>{" "}
-                                {faculty.Email}
-                              </p>
-                            </div>
-                            <DialogFooter className="sm:justify-start">
-                              <DialogClose asChild>
-                              </DialogClose>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
+                  {filteredLabs.map((lab, index) => (
+                    <TableRow key={lab._id || index}>
+                      <TableCell>{lab.name}</TableCell>
+                      <TableCell>{lab.location}</TableCell>
+                      <TableCell className="bg-green">
+                        {lab.status ? "Available" : "Unavailable"}
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
-            </CardContent>
-          </Card>
-        </div>
+            )}
+          </CardContent>
+        </Card>
       </main>
     </div>
   );
 }
+

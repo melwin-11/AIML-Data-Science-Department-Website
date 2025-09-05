@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     res.json(events);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Error fetching Aids events" });
+    res.status(500).json({ message: "Error fetching AIDs events" });
   }
 });
 

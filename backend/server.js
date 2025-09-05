@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const config = require("./config/config");
 const userRoutes = require("./routes/userRoutes");
-
+const labsRoutes = require("./routes/labsRoutes");
+const aidsEventsRoutes = require("./routes/aidsEvents");
 const app = express();
 
 // ✅ Middleware
@@ -17,7 +18,7 @@ app.use(
 
 // ✅ Connect to MongoDB
 mongoose
-  .connect(process.env.MONGODB_URI, {
+  .connect(config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -26,6 +27,8 @@ mongoose
 
 // ✅ Routes
 app.use("/api/users", userRoutes);
+app.use("/labs", labsRoutes);
+app.use("/aids-events", aidsEventsRoutes);
 
 app.get("/", (req, res) => {
   res.send("✅ API is running");
