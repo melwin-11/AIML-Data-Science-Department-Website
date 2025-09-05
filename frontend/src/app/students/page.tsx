@@ -1,277 +1,199 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CartesianGrid, Line, LineChart, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Confetti, type ConfettiRef } from "@/components/magicui/confetti";
 import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
-} from "@/components/ui/navigation-menu";
-
-// Attendance & Grades Data
-export const AttendanceChartData = [
-  { Semester: "Sem-1", Attendance: 98.46 },
-  { Semester: "Sem-2", Attendance: 96.15 },
-  { Semester: "Sem-3", Attendance: 94.72 },
-  { Semester: "Sem-4", Attendance: 94.51 },
-  { Semester: "Sem-5", Attendance: 91.72 },
-];
-
-export const GardesChartData = [
-  { Semester: "Sem-1", CGPA: 3.8 },
-  { Semester: "Sem-2", CGPA: 3.7 },
-  { Semester: "Sem-3", CGPA: 3.75 },
-  { Semester: "Sem-4", CGPA: 3.76 },
-];
-
-export const CurrentSemesterAttendance = [
-  { Course: "Machine Learning", TotalClassesPresent: 44, TotalClassesConducted: 46, Attendance: "95.65%" },
-  { Course: "Internet & Web Programming", TotalClassesPresent: 44, TotalClassesConducted: 47, Attendance: "93.61%" },
-  { Course: "Cloud Computing", TotalClassesPresent: 55, TotalClassesConducted: 57, Attendance: "96.49%" },
-  { Course: "Cryptography & Newtork Security", TotalClassesPresent: 24, TotalClassesConducted: 27, Attendance: "88%" },
-  { Course: "Design and Analysis of Algorithms", TotalClassesPresent: 28, TotalClassesConducted: 32, Attendance: "87.5%" },
-  { Course: "Software Engineering & Project Management", TotalClassesPresent: 18, TotalClassesConducted: 20, Attendance: "90%" },
-];
-
-export const CurrentSemesterGrades = [
-  { Course: "Machine Learning", CIA_1: 19, MSE: 43, CIA_3: "Pending" },
-  { Course: "Internet & Web Programming", CIA_1: 18, MSE: 40, CIA_3: "Pending" },
-  { Course: "Cloud Computing", CIA_1: 18, MSE: 45, CIA_3: "Pending" },
-  { Course: "Cryptography & Newtork Security", CIA_1: 18, MSE: 43, CIA_3: "Pending" },
-  { Course: "Design and Analysis of Algorithms", CIA_1: 18, MSE: 45, CIA_3: "Pending" },
-  { Course: "Software Engineering & Project Management", CIA_1: 19, MSE: 35, CIA_3: "Pending" },
-];
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function StudentPage() {
   const router = useRouter();
-  const confettiRef = useRef<ConfettiRef>(null);
-  const [showAlert, setShowAlert] = useState(false);
-
-  const overallAttendance = parseFloat(
-    (
-      CurrentSemesterAttendance.reduce(
-        (sum, c) => sum + parseFloat(c.Attendance.replace("%", "")),
-        0
-      ) / CurrentSemesterAttendance.length
-    ).toFixed(2)
-  );
+  const [profile, setProfile] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (overallAttendance >= 85) {
-      setShowAlert(true);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+      return;
     }
-  }, []);
+
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/users/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch profile");
+
+        const data = await res.json();
+        setProfile(data);
+      } catch (error) {
+        console.error("Error fetching student data:", error);
+        router.push("/login");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        Loading student data...
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        No profile data found
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-slate-900">
-      {/* Header */}
-      <div className="w-full bg-white dark:bg-slate-800 px-6 py-3 flex items-center justify-between shadow-md">
-        <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-          Welcome Melwin Robinson, 2362112
-        </div>
+    <div className="min-h-screen bg-black text-white p-6">
+      <h1 className="text-3xl font-bold mb-6">Welcome, {profile.name}</h1>
+      <p className="mb-4">Register Number: {profile.registerNumber}</p>
 
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="px-3 py-1 text-sm bg-gray-100 dark:bg-slate-700 rounded hover:bg-gray-200 dark:hover:bg-slate-600">
-                Melwin Robinson 2362112
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <NavigationMenuLink
-                  onClick={() => router.push("/")}
-                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
-                >
-                  Profile
-                </NavigationMenuLink>
-                <NavigationMenuLink
-                  onClick={() => router.push("/")}
-                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
-                >
-                  Private Files
-                </NavigationMenuLink>
-                <NavigationMenuLink
-                  onClick={() => router.push("/")}
-                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
-                >
-                  Calender
-                </NavigationMenuLink>
-                <NavigationMenuLink
-                  onClick={() => router.push("/")}
-                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
-                >
-                  Messages
-                </NavigationMenuLink>
-                <NavigationMenuLink
-                  onClick={() => router.push("./")}
-                  className="block px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
-                >
-                  Sign-out
-                </NavigationMenuLink>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
+      {/* Attendance Chart */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Attendance Overview</CardTitle>
+          <CardDescription>
+            Semester-wise attendance percentage
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {profile.attendanceChartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={profile.attendanceChartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="Semester" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="Attendance" stroke="#8884d8" />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <p>No attendance records found.</p>
+          )}
+        </CardContent>
+      </Card>
 
-      {/* Alert */}
-      {showAlert && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-auto max-w-xs">
-          <Alert className="relative text-center text-sm p-4 rounded-lg shadow-md flex flex-col items-center gap-3 bg-white dark:bg-slate-800">
-            <AlertTitle className="text-base font-semibold">
-              🎉 Congratulations!
-            </AlertTitle>
-            <AlertDescription className="text-sm">
-              Your overall attendance is <strong>{overallAttendance}%</strong> — enough to write the upcoming exams.
-            </AlertDescription>
+      {/* Grades Chart */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Grades Overview</CardTitle>
+          <CardDescription>Semester-wise CGPA</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {profile.gradesChartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={profile.gradesChartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="Semester" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="CGPA" stroke="#82ca9d" />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <p>No grades records found.</p>
+          )}
+        </CardContent>
+      </Card>
 
-            <Confetti
-              ref={confettiRef}
-              className="absolute left-0 top-0 w-full h-full z-0 pointer-events-none"
-            />
+      {/* Current Semester Attendance Table */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Current Semester Attendance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {profile.currentSemesterAttendance.length > 0 ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Course</TableHead>
+                  <TableHead>Present</TableHead>
+                  <TableHead>Conducted</TableHead>
+                  <TableHead>Attendance</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {profile.currentSemesterAttendance.map((c: any, i: number) => (
+                  <TableRow key={i}>
+                    <TableCell>{c.Course}</TableCell>
+                    <TableCell>{c.TotalClassesPresent}</TableCell>
+                    <TableCell>{c.TotalClassesConducted}</TableCell>
+                    <TableCell>{c.Attendance}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p>No attendance data found.</p>
+          )}
+        </CardContent>
+      </Card>
 
-            <div className="flex gap-2 mt-2">
-              <button
-                onClick={() => confettiRef.current?.fire({})}
-                className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
-              >
-                Celebrate
-              </button>
-              <button
-                onClick={() => setShowAlert(false)}
-                className="px-3 py-1 text-sm bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
-              >
-                Close
-              </button>
-            </div>
-          </Alert>
-        </div>
-      )}
-
-      {/* Confetti overlay for full page */}
-      <Confetti ref={confettiRef} className="absolute left-0 top-0 w-full h-full z-0 pointer-events-none" />
-
-      {/* Main content */}
-      <div className="p-4 relative flex-1">
-        <Tabs defaultValue="students">
-          <TabsList>
-            <TabsTrigger value="students">Attendance</TabsTrigger>
-            <TabsTrigger value="performance">Grade</TabsTrigger>
-          </TabsList>
-
-          {/* Attendance Tab */}
-          <TabsContent value="students">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-center">Attendance</CardTitle>
-                <CardDescription className="text-center">
-                  Track your attendance over the course of the semester
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="flex-1 min-w-[300px]">
-                    <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={AttendanceChartData} margin={{ top: 20, right: 0, bottom: 20, left: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="Semester" />
-                        <YAxis domain={[90, 100]} />
-                        <Tooltip />
-                        <Line type="monotone" dataKey="Attendance" stroke="#0A1A2F" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  </div>
-
-                  <div className="flex-1 overflow-x-auto min-w-[300px]">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Course</TableHead>
-                          <TableHead>Total Classes Present</TableHead>
-                          <TableHead>Total Classes Conducted</TableHead>
-                          <TableHead>Attendance</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {CurrentSemesterAttendance.map((course, idx) => (
-                          <TableRow key={idx}>
-                            <TableCell>{course.Course}</TableCell>
-                            <TableCell>{course.TotalClassesPresent}</TableCell>
-                            <TableCell>{course.TotalClassesConducted}</TableCell>
-                            <TableCell>{course.Attendance}</TableCell>
-                          </TableRow>
-                        ))}
-                        <TableRow>
-                          <TableCell><strong>Overall Attendance</strong></TableCell>
-                          <TableCell colSpan={3}>{overallAttendance}%</TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Grades Tab */}
-          <TabsContent value="performance">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-center">Grades</CardTitle>
-                <CardDescription className="text-center">
-                  Track your grades over the course of the semester
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="flex-1 min-w-[300px]">
-                    <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={GardesChartData} margin={{ top: 20, right: 0, bottom: 20, left: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="Semester" />
-                        <YAxis domain={[3, 4]} />
-                        <Tooltip />
-                        <Line type="monotone" dataKey="CGPA" stroke="#0A1A2F" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  </div>
-
-                  <div className="flex-1 overflow-x-auto min-w-[300px]">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Course</TableHead>
-                          <TableHead>CIA-1</TableHead>
-                          <TableHead>MSE</TableHead>
-                          <TableHead>CIA-3</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {CurrentSemesterGrades.map((course, idx) => (
-                          <TableRow key={idx}>
-                            <TableCell>{course.Course}</TableCell>
-                            <TableCell>{course.CIA_1}</TableCell>
-                            <TableCell>{course.MSE}</TableCell>
-                            <TableCell>{course.CIA_3}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </div>
+      {/* Current Semester Grades Table */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Current Semester Grades</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {profile.currentSemesterGrades.length > 0 ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Course</TableHead>
+                  <TableHead>CIA 1</TableHead>
+                  <TableHead>MSE</TableHead>
+                  <TableHead>CIA 3</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {profile.currentSemesterGrades.map((g: any, i: number) => (
+                  <TableRow key={i}>
+                    <TableCell>{g.Course}</TableCell>
+                    <TableCell>{g.CIA_1}</TableCell>
+                    <TableCell>{g.MSE}</TableCell>
+                    <TableCell>{g.CIA_3}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p>No grades data found.</p>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
