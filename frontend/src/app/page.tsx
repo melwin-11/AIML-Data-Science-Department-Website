@@ -149,7 +149,7 @@ export default function LandingPage() {
 
       <NavigationMenuItem>
         <NavigationMenuLink
-          href="../Sania/Projects/index.html"
+          href="/projects"
           className="px-4 py-2 text-white"
         >
           Projects

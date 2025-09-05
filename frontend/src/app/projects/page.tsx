@@ -42,7 +42,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
+import { Progress } from "@/components/ui/progress"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string }
@@ -155,72 +156,74 @@ export default function TeachersPage() {
 
       {/* Main Content */}
       <main className="flex flex-col items-center p-4">
-        <h1 className="text-4xl font-bold mb-6">AI&DS Faculty</h1>
+        <h1 className="text-4xl font-bold mb-6">Department Innovation Hub</h1>
 
         <div className="w-full max-w-4xl">
           <Card>
             <CardHeader>
-              <CardTitle>AI&DS Faculty Members</CardTitle>
+              <CardTitle>AIDS Department Research/Project Hub</CardTitle>
               <CardDescription>
-                Find your respective faculty member
+                Explore a diverse range of projects and research initiatives led by our students and faculty
               </CardDescription>
               <Input
                 type="text"
-                placeholder="Search faculty..."
+                placeholder="Search for research papers, projects ..."
                 className="mt-4"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Specialization</TableHead>
-                    <TableHead>Contact</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredFaculty.map((faculty, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{faculty.name}</TableCell>
-                      <TableCell>{faculty.specialization}</TableCell>
-                      <TableCell>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button>View Profile</Button>
-                          </DialogTrigger>
-                          <DialogContent className="sm:max-w-md">
-                            <DialogHeader>
-                              <DialogTitle>{faculty.name}</DialogTitle>
-                              <DialogDescription>
-                                Department: {faculty.department}
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="flex flex-col gap-2">
-                              <p>
-                                <strong>Cubicle Number:</strong>{" "}
-                                {faculty.Cubicle}
-                              </p>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <p>
-                                <strong>Email:</strong>{" "}
-                                {faculty.Email}
-                              </p>
-                            </div>
-                            <DialogFooter className="sm:justify-start">
-                              <DialogClose asChild>
-                              </DialogClose>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                <Card className="max-w-md mx-auto bg-white text-black shadow-md rounded-lg overflow-hidden">
+  <CardHeader className="px-4 pt-4">
+    <CardTitle className="text-lg font-bold">Department Website</CardTitle>
+  </CardHeader>
+
+  {/* Image */}
+  <div className="w-full h-48 relative">
+    <Image
+      src="/Department_Website.png" // your image path in public folder
+      alt="Department Website"
+      fill
+      className="object-cover"
+    />
+  </div>
+
+  {/* Description */}
+  <CardContent className="px-4 py-4 space-y-4">
+    <CardDescription>
+      An intra-department competition to build a functional and scalable department website.
+    </CardDescription>
+
+    {/* Progress and Team Members row */}
+    <div className="flex items-center justify-between space-x-4">
+      {/* Progress */}
+      <div className="flex-1">
+        <p className="text-sm font-medium mb-1">Progress</p>
+        <Progress value={100} className="w-full" />
+      </div>
+
+      {/* Team Members */}
+      <div className="flex flex-col items-center">
+        <p className="text-sm font-medium mb-1">Contributors</p>
+        <div className="flex -space-x-2">
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarImage src="https://i.pravatar.cc/40?img=2" />
+            <AvatarFallback>AB</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarImage src="https://i.pravatar.cc/40?img=3" />
+            <AvatarFallback>XY</AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+    </div>
+  </CardContent>
+</Card>
             </CardContent>
           </Card>
         </div>
