@@ -1,8 +1,7 @@
 "use client";
-import React, { useState } from "react";  // ✅ Import useState
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import facultyData from "@/data/faculty.json";  // ✅ Import JSON
 
 import {
   NavigationMenu,
@@ -69,13 +68,31 @@ ListItem.displayName = "ListItem";
 
 export default function TeachersPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // ✅ Proper filtering with search
-  const filteredFaculty = searchQuery
-    ? facultyData.filter((faculty) =>
-        faculty.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // Fetch projects from API
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const res = await fetch("http://localhost:5000/projects");
+        const data = await res.json();
+        setProjects(data);
+      } catch (err) {
+        setProjects([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProjects();
+  }, []);
+
+  // Filter projects by title: only show matches if searching, else show all
+  const filteredProjects = searchQuery
+    ? projects.filter((project) =>
+        project.title.toLowerCase().includes(searchQuery.toLowerCase())
       )
-    : facultyData;
+    : projects;
 
   return (
     <div className="landing-page">
@@ -157,7 +174,6 @@ export default function TeachersPage() {
       {/* Main Content */}
       <main className="flex flex-col items-center p-4">
         <h1 className="text-4xl font-bold mb-6">Department Innovation Hub</h1>
-
         <div className="w-full max-w-4xl">
           <Card>
             <CardHeader>
@@ -174,56 +190,50 @@ export default function TeachersPage() {
               />
             </CardHeader>
             <CardContent>
-                <Card className="max-w-md mx-auto bg-white text-black shadow-md rounded-lg overflow-hidden">
-  <CardHeader className="px-4 pt-4">
-    <CardTitle className="text-lg font-bold">Department Website</CardTitle>
-  </CardHeader>
-
-  {/* Image */}
-  <div className="w-full h-48 relative">
-    <Image
-      src="/Department_Website.png" // your image path in public folder
-      alt="Department Website"
-      fill
-      className="object-cover"
-    />
-  </div>
-
-  {/* Description */}
-  <CardContent className="px-4 py-4 space-y-4">
-    <CardDescription>
-      An intra-department competition to build a functional and scalable department website.
-    </CardDescription>
-
-    {/* Progress and Team Members row */}
-    <div className="flex items-center justify-between space-x-4">
-      {/* Progress */}
-      <div className="flex-1">
-        <p className="text-sm font-medium mb-1">Progress</p>
-        <Progress value={100} className="w-full" />
-      </div>
-
-      {/* Team Members */}
-      <div className="flex flex-col items-center">
-        <p className="text-sm font-medium mb-1">Contributors</p>
-        <div className="flex -space-x-2">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <Avatar>
-            <AvatarImage src="https://i.pravatar.cc/40?img=2" />
-            <AvatarFallback>AB</AvatarFallback>
-          </Avatar>
-          <Avatar>
-            <AvatarImage src="https://i.pravatar.cc/40?img=3" />
-            <AvatarFallback>XY</AvatarFallback>
-          </Avatar>
-        </div>
-      </div>
-    </div>
-  </CardContent>
-</Card>
+              <h1 className="text-2xl font-bold mb-6 text-center">Projects & Research</h1>
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredProjects.map((project, idx) => (
+                    <Card key={project._id || idx} className="bg-white text-black shadow-md rounded-lg overflow-hidden">
+                      <CardHeader className="px-4 pt-4">
+                        <CardTitle className="text-lg font-bold">{project.title}</CardTitle>
+                      </CardHeader>
+                      <div className="w-full h-48 relative">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <CardContent className="px-4 py-4 space-y-4">
+                        <CardDescription>
+                          {project.description}
+                        </CardDescription>
+                        <div className="flex items-center justify-between space-x-4">
+                          <div className="flex-1">
+                            <p className="text-sm font-medium mb-1">Progress</p>
+                            <Progress value={project.progress} className="w-full" />
+                          </div>
+                          <div className="flex flex-col items-center">
+                            <p className="text-sm font-medium mb-1">Contributors</p>
+                            <div className="flex -space-x-2">
+                              {project.contributors && project.contributors.map((contrib, i) => (
+                                <Avatar key={i}>
+                                  <AvatarImage src={contrib.src} />
+                                  <AvatarFallback>{contrib.fallback}</AvatarFallback>
+                                </Avatar>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

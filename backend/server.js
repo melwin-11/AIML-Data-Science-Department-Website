@@ -5,6 +5,7 @@ const config = require("./config/config");
 const userRoutes = require("./routes/userRoutes");
 const labsRoutes = require("./routes/labsRoutes");
 const aidsEventsRoutes = require("./routes/aidsEvents");
+const projectsRoutes = require("./routes/projects");
 const app = express();
 
 // ✅ Middleware
@@ -29,6 +30,7 @@ mongoose
 app.use("/api/users", userRoutes);
 app.use("/labs", labsRoutes);
 app.use("/aids-events", aidsEventsRoutes);
+app.use("/projects", projectsRoutes);
 
 app.get("/", (req, res) => {
   res.send("✅ API is running");
