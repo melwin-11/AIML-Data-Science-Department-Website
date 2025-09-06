@@ -31,7 +31,7 @@ import {
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string }
->(({ className, title, children, ...props }, ref) => {
+>(({ title, children, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -51,9 +51,16 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
+type Lab = {
+  _id?: string;
+  name: string;
+  location: string;
+  status: boolean;
+};
+
 export default function TeachersPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [labs, setLabs] = useState([]);
+  const [labs, setLabs] = useState<Lab[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch labs from API
@@ -63,7 +70,7 @@ export default function TeachersPage() {
         const res = await fetch("http://localhost:5000/labs");
         const data = await res.json();
         setLabs(data);
-      } catch (err) {
+      } catch {
         setLabs([]);
       } finally {
         setLoading(false);

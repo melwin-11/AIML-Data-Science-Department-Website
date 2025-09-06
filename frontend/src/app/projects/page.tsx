@@ -20,11 +20,12 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string }
->(({ className, title, children, ...props }, ref) => {
+>(({ title, children, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -44,9 +45,18 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
+type Project = {
+  _id?: string;
+  title: string;
+  image: string;
+  description: string;
+  progress: number;
+  contributors: { src: string; fallback: string }[];
+};
+
 export default function TeachersPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch projects from API
@@ -56,7 +66,7 @@ export default function TeachersPage() {
         const res = await fetch("http://localhost:5000/projects");
         const data = await res.json();
         setProjects(data);
-      } catch (err) {
+      } catch {
         setProjects([]);
       } finally {
         setLoading(false);
