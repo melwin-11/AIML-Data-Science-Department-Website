@@ -211,18 +211,3 @@ export default function TeachersPage() {
     </div>
   );
 }
-                      <TableCell className="bg-green">
-                        {lab.status ? "Available" : "Unavailable"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </CardContent>
-        </Card>
-      </main>
-    </div>
-  );
-}
-

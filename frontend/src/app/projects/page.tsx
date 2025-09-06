@@ -225,27 +225,3 @@ export default function TeachersPage() {
     </div>
   );
 }
-                          <div className="flex flex-col items-center">
-                            <p className="text-sm font-medium mb-1">Contributors</p>
-                            <div className="flex -space-x-2">
-                              {project.contributors && project.contributors.map((contrib, i) => (
-                                <Avatar key={i}>
-                                  <AvatarImage src={contrib.src} />
-                                  <AvatarFallback>{contrib.fallback}</AvatarFallback>
-                                </Avatar>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-    </div>
-  );
-}
