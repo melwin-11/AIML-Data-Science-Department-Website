@@ -4,272 +4,311 @@
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"343/91,THIRD Floor,BLOCK III",
-    "Email":"alpha.vijayan@christuniversity.in"
+    "Email":"alpha.vijayan@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E8586.jpg"
   },
   {
     "name": "Dr AMBILY BALARAM",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information and Communication Engineering",
     "Cubicle":"45,GROUND Floor,BLOCK III",
-    "Email":"ambily.balaram@christuniversity.in"
+    "Email":"ambily.balaram@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E8656.jpg"
   },
   {
     "name": "AMOS BORTIEW",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information Technology",
     "Cubicle":"86,THIRD Floor,BLOCK III",
-    "Email":"amos.bortiew@christuniversity.in"
+    "Email":"amos.bortiew@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E9347.jpg"
   },
   {
     "name": "Dr ANCY NIDHIN P R",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"140,FIRST Floor,BLOCK V",
-    "Email":"ancy.nidhin@christuniversity.in"
+    "Email":"ancy.nidhin@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E6855.jpg"
   },
   {
     "name": "ARUL V",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"93,THIRD Floor,BLOCK III",
-    "Email":"arul.v@christuniversity.in"
+    "Email":"arul.v@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E6277.jpg"
   },
   {
     "name": "Dr ARUNA S K",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information and Communication Engineering",
     "Cubicle":"Room : 317 / Cabin : 228,first Floor,BLOCK III",
-    "Email":"aruna.sk@christuniversity.in"
+    "Email":"aruna.sk@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E2974.jpg"
   },
   {
     "name": "ATHULYA S",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"90,THIRD Floor,BLOCK III",
-    "Email":"athulya.s@christuniversity.in"
+    "Email":"athulya.s@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E6854.jpg"
   },
   {
     "name": "Dr BABU KUMAR S",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer and Information Sciences",
     "Cubicle":"M Floor, Staff Room, M03,GROUND Floor,SOA",
-    "Email":"babu.kumar@christuniversity.in"
+    "Email":"babu.kumar@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E6294.jpg"
   },
   {
     "name": "Dr BIJEESH T V",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"Room 343/ Cabin 88,THIRD Floor,BLOCK III",
-    "Email":"bijeesh.tv@christuniversity.in"
+    "Email":"bijeesh.tv@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E1881.jpg"
   },
   {
     "name": "CHAITRA P C",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Data Science",
     "Cubicle":"M210,GROUND Floor,SOA",
-    "Email":"chaitra.pc@christuniversity.in"
+    "Email":"chaitra.pc@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E6715.jpg"
   },
   {
     "name": "CYNTHIA C",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Machine Learning",
     "Cubicle":"622,SECOND Floor,BLOCK II",
-    "Email":"cynthia.c@christuniversity.in"
+    "Email":"cynthia.c@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E8665.jpg"
   },
   {
     "name": "Dr DEBARKA MUKHOPADHYAY",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Nano Computing",
     "Cubicle":"325/58,first Floor,BLOCK III",
-    "Email":"debarka.mukhopadhyay@christuniversity.in"
+    "Email":"debarka.mukhopadhyay@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E4691.jpg"
   },
   {
     "name": "Dr DIVYA VETRIVEERAN",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information and Communication Engineering",
     "Cubicle":"131,FIRST Floor,BLOCK V",
-    "Email":"divya.vetriveeran@christuniversity.in"
+    "Email":"divya.vetriveeran@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E5146.jpg"
   },
   {
     "name": "Dr GNANA PRAKASI O S",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information and Communication Engineering",
     "Cubicle":"317/223,first Floor,BLOCK III",
-    "Email":"gnana.prakasi@christuniversity.in"
+    "Email":"gnana.prakasi@christuniversity.in",
+    "img" :"https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E2920.jpg"
   },
   {
     "name": "Dr JANANI V S",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Network Security",
     "Cubicle":"48,345,First Floor,BLOCK III",
-    "Email":"janani.vs@christuniversity.in"
+    "Email":"janani.vs@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E9448.jpg"
   },
   {
     "name": "Dr JENO LOVESUM S P",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Cloud Computing",
     "Cubicle":"345,f=First Floor,BLOCK III",
-    "Email":"jeno.lovesum@christuniversity.in"
+    "Email":"jeno.lovesum@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E5872.jpg"
   },
   {
     "name": "Dr KUKATLAPALLI PRADEEP KUMAR",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science & Engineering",
     "Cubicle":"343/ 94,THIRD Floor,BLOCK III",
-    "Email":"kukatlapalli.kumar@christuniversity.in"
+    "Email":"kukatlapalli.kumar@christuniversity.in",
+    "img": "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E1224.jpg"
   },
   {
     "name": "Dr MANIKANDAKUMAR M",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information and Communication Engineering",
     "Cubicle":"314/226,first Floor,BLOCK III",
-    "Email":"manikandakumar.m@christuniversity.in"
+    "Email":"manikandakumar.m@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E7466.jpg"
   },
   {
     "name": "Dr MANJUNATHA SWAMY C",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer & Information Sciences",
     "Cubicle":"132,FIRST Floor,BLOCK V",
-    "Email":"manjunathaswamy.c@christuniversity.in"
+    "Email":"manjunathaswamy.c@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E6777.jpg"
   },
   {
     "name": "Dr MARY ANITA E A",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"Office of Associate Dean ,first Floor,BLOCK III",
-    "Email":"maryanita.ea@christuniversity.in"
+    "Email":"maryanita.ea@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E4755.jpg"
   },
   {
     "name": "Dr MARY JASMINE E",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information and Communication Engineering",
     "Cubicle":"M207,GROUND Floor,SOA",
-    "Email":"mary.jasmine@christuniversity.in"
+    "Email":"mary.jasmine@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E8212.jpg"
   },
   {
     "name": "Dr MAUSUMI GOSWAMI",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science",
     "Cubicle":"325/59/Dr Mausumi Goswami,first Floor,BLOCK III",
-    "Email":"mausumi.goswami@christuniversity.in"
+    "Email":"mausumi.goswami@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E1403.jpg"
   },
   {
     "name": "Dr MELBIN J REENA",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Big Data Analytics",
     "Cubicle":"M211,GROUND Floor,SOA",
-    "Email":"melbin.reena@christuniversity.in"
+    "Email":"melbin.reena@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E5871.jpg"
   },
   {
     "name": "Dr MICHAEL MOSES T",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"98,THIRD Floor,BLOCK III",
-    "Email":"michael.moses@christuniversity.in"
+    "Email":"michael.moses@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E1703.jpg"
   },
   {
     "name": "Dr NEETHU P S",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Image Processing and Machine Learning",
     "Cubicle":"43/95/Staffroom,THIRD Floor,BLOCK III",
-    "Email":"neethu.ps@christuniversity.in"
+    "Email":"neethu.ps@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E5866.jpg"
   },
   {
     "name": "Dr POONGODI C",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information and Communication Engineering",
     "Cubicle":"80,THIRD Floor,BLOCK III",
-    "Email":"poongodi.c@christuniversity.in"
+    "Email":"poongodi.c@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E9426.jpg"
   },
   {
     "name": "Dr RAGHAVENDRA S",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"325/56,first Floor,BLOCK III",
-    "Email":"s.raghavendra@christuniversity.in"
+    "Email":"s.raghavendra@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E2936.jpg"
   },
   {
     "name": "Dr RAJKUMAR RAJAVEL",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Cloud Computing",
     "Cubicle":"Room 317/Cabin 230,first Floor,BLOCK III",
-    "Email":"rajkumar.rajavel@christuniversity.in"
+    "Email":"rajkumar.rajavel@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E5164.jpg"
   },
   {
     "name": "Dr REKHA V",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer and Information Sciences",
     "Cubicle":"M1,GROUND Floor,SOA",
-    "Email":"rekha.v@christuniversity.in"
+    "Email":"rekha.v@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E2958.jpg"
   },
   {
     "name": "Dr SAGAYA ARULMARY SOLOMON AROCKIA DOSS",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"",
-    "Email":"sagaya.arulmary@christuniversity.in"
+    "Email":"sagaya.arulmary@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E9497.jpg"
   },
   {
     "name": "Dr SAMRUDHI MOHDIWALE",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information Technology",
     "Cubicle":"",
-    "Email":"samrudhi.mohdiwale@christuniversity.in"
+    "Email":"samrudhi.mohdiwale@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E9736.jpg"
   },
   {
     "name": "Dr SANDEEP KUMAR",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science",
     "Cubicle":"343/89,THIRD Floor,BLOCK III",
-    "Email":"sandeepkumar@christuniversity.in"
+    "Email":"sandeepkumar@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E4860.jpg"
   },
   {
     "name": "SANTHRUPTH B C",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"343/85,THIRD Floor,BLOCK III",
-    "Email":"santhrupth.bc@christuniversity.in"
+    "Email":"santhrupth.bc@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E5873.jpg"
   },
   {
     "name": "Dr SHIJU GEORGE",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Intelligent Transportation Systems- Deep Learning",
     "Cubicle":"325/53,first Floor,BLOCK III",
-    "Email":"shiju.george@christuniversity.in"
+    "Email":"shiju.george@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E8699.jpg"
   },
   {
     "name": "Dr SUJATHA A K",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science & Engineering",
     "Cubicle":"55,first Floor,BLOCK III",
-    "Email":"sujatha.ak@christuniversity.in"
+    "Email":"sujatha.ak@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E1178.jpg"
   },
   {
     "name": "SWATI RAJ",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Computer Science and Engineering",
     "Cubicle":"Swati Raj,first Floor,BLOCK III",
-    "Email":"swati.raj@christuniversity.in"
+    "Email":"swati.raj@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E6879.jpg"
   },
   {
     "name": "VIGNESHWARAN T",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information and Communication Engineering",
     "Cubicle":"Room No M106,#M209, M Floor, SOA,GROUND Floor,SOA",
-    "Email":"vigneshwaran.t@christuniversity.in"
+    "Email":"vigneshwaran.t@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E6788.jpg"
   },
   {
     "name": "Dr VINODHA D",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Information and Communication Engineering",
     "Cubicle":"317/227,first Floor,BLOCK III",
-    "Email":"vinodha.d@christuniversity.in"
+    "Email":"vinodha.d@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E6773.jpg"
   },
   {
     "name": "Dr XAVIER C",
     "department": "AI, ML AND DATA SCIENCE",
     "specialization": "Parallel Algorithms",
     "Cubicle":"243,first Floor,BLOCK III",
-    "Email":"xavier.c@christuniversity.in"
+    "Email":"xavier.c@christuniversity.in",
+    "img" : "https://kp.christuniversity.in/KnowledgePro/images/EmployeePhotos/E3198.jpg"
   }
 ]

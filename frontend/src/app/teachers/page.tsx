@@ -1,8 +1,7 @@
 "use client";
-import React, { useState } from "react";  // ✅ Import useState
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import facultyData from "@/data/faculty.json";  // ✅ Import JSON
 
 import {
   NavigationMenu,
@@ -15,7 +14,6 @@ import {
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -25,10 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -68,10 +64,28 @@ ListItem.displayName = "ListItem";
 
 export default function TeachersPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [facultyData, setFacultyData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // ✅ Proper filtering with search
+  // Fetch faculty data from API
+  useEffect(() => {
+    async function fetchFaculty() {
+      try {
+        const res = await fetch("http://localhost:5000/faculty-details");
+        const data = await res.json();
+        setFacultyData(data);
+      } catch (err) {
+        setFacultyData([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchFaculty();
+  }, []);
+
+  // Filtering logic
   const filteredFaculty = searchQuery
-    ? facultyData.filter((faculty) =>
+    ? facultyData.filter((faculty: any) =>
         faculty.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : facultyData;
@@ -95,7 +109,7 @@ export default function TeachersPage() {
               <NavigationMenuTrigger
                 className="px-4 py-2 text-white bg-transparent shadow-none border-none hover:bg-transparent hover:text-gray-300 focus:outline-none"
               >
-               <Link href='/'>Home</Link>
+                <Link href="/">Home</Link>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
@@ -124,13 +138,13 @@ export default function TeachersPage() {
               </Link>
             </NavigationMenuItem>
 
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link href="/teachers" className="px-4 py-2 text-white">
-          Faculty
-          </Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/teachers" className="px-4 py-2 text-white">
+                  Faculty
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
 
             <NavigationMenuItem>
               <NavigationMenuLink
@@ -149,6 +163,14 @@ export default function TeachersPage() {
                 Projects
               </NavigationMenuLink>
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                href="/calender"
+                className="px-4 py-2 text-white"
+              >
+                Calender
+              </NavigationMenuLink>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </header>
@@ -156,7 +178,6 @@ export default function TeachersPage() {
       {/* Main Content */}
       <main className="flex flex-col items-center p-4">
         <h1 className="text-4xl font-bold mb-6">AI&DS Faculty</h1>
-
         <div className="w-full max-w-4xl">
           <Card>
             <CardHeader>
@@ -173,54 +194,78 @@ export default function TeachersPage() {
               />
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Specialization</TableHead>
-                    <TableHead>Contact</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredFaculty.map((faculty, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{faculty.name}</TableCell>
-                      <TableCell>{faculty.specialization}</TableCell>
-                      <TableCell>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button>View Profile</Button>
-                          </DialogTrigger>
-                          <DialogContent className="sm:max-w-md">
-                            <DialogHeader>
-                              <DialogTitle>{faculty.name}</DialogTitle>
-                              <DialogDescription>
-                                Department: {faculty.department}
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="flex flex-col gap-2">
-                              <p>
-                                <strong>Cubicle Number:</strong>{" "}
-                                {faculty.Cubicle}
-                              </p>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <p>
-                                <strong>Email:</strong>{" "}
-                                {faculty.Email}
-                              </p>
-                            </div>
-                            <DialogFooter className="sm:justify-start">
-                              <DialogClose asChild>
-                              </DialogClose>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
-                      </TableCell>
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Specialization</TableHead>
+                      <TableHead>Contact</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredFaculty.map((faculty: any, index: number) => (
+                      <TableRow key={index}>
+                        <TableCell>{faculty.name}</TableCell>
+                        <TableCell>{faculty.specialization}</TableCell>
+                        <TableCell>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button>View Profile</Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-2xl">
+                              <div className="flex flex-col md:flex-row gap-6">
+                                {/* Details on the left */}
+                                <div className="flex-1 space-y-2">
+                                  <DialogHeader>
+                                    <DialogTitle>{faculty.name}</DialogTitle>
+                                    <DialogDescription>
+                                      Department: {faculty.department}
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <div>
+                                    <p>
+                                      <strong>Cubicle Number:</strong>{" "}
+                                      {faculty.Cubicle}
+                                    </p>
+                                    <p>
+                                      <strong>Email:</strong>{" "}
+                                      {faculty.Email}
+                                    </p>
+                                    <p>
+                                      <strong>Specialization:</strong>{" "}
+                                      {faculty.specialization}
+                                    </p>
+                              
+                                  </div>
+                                </div>
+                                <div className="flex-shrink-0 flex items-center justify-center">
+                                  {faculty.img && (
+                                    <Image
+                                      src={faculty.img}
+                                      alt={faculty.name}
+                                      width={180}
+                                      height={220}
+                                      className="rounded-lg object-cover"
+                                    />
+                                  )}
+                                </div>
+                              </div>
+                              <DialogFooter className="sm:justify-start">
+                                <DialogClose asChild>
+                                  <Button variant="secondary">Close</Button>
+                                </DialogClose>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
             </CardContent>
           </Card>
         </div>

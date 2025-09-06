@@ -29,42 +29,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from "@/components/ui/navigation-menu";
 
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-
 export default function StudentPage() {
   const router = useRouter();
   const [profile, setProfile] = useState<any | null>(null);
-  const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-
-// Fetch calendar events
-useEffect(() => {
-  const fetchEvents = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/api/aids-events");
-      if (!res.ok) throw new Error("Failed to fetch events");
-      const data = await res.json();
-
-      // Transform API data into FullCalendar-compatible format
-      const formattedEvents = data.map((e: any) => ({
-        title: e.title,
-        start: e.start,
-        end: e.end,
-        allDay: e.allDay ?? true, // default to true if missing
-        description: e.description ?? "",
-      }));
-
-      // Store in state
-      setEvents(formattedEvents);
-    } catch (err) {
-      console.error("Error fetching events:", err);
-    }
-  };
-
-  fetchEvents();
-}, []);
   // Fetch profile only if logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -142,7 +111,6 @@ useEffect(() => {
         <TabsList>
           <TabsTrigger value="attendance">Attendance</TabsTrigger>
           <TabsTrigger value="grades">Grades</TabsTrigger>
-          <TabsTrigger value="events">Calendar</TabsTrigger>
         </TabsList>
 
         {/* Attendance Tab */}
@@ -255,24 +223,6 @@ useEffect(() => {
               ) : (
                 <p>No grades data found.</p>
               )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Events / Calendar Tab */}
-        <TabsContent value="events">
-          <Card className="mb-6 bg-white text-black">
-            <CardHeader>
-              <CardTitle>Calendar</CardTitle>
-              <CardDescription>View your schedule</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <FullCalendar
-                plugins={[dayGridPlugin]}
-                initialView="dayGridMonth"
-                height="auto"
-                events={events}
-              />
             </CardContent>
           </Card>
         </TabsContent>

@@ -167,6 +167,14 @@ export default function TeachersPage() {
                 Projects
               </NavigationMenuLink>
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                href="/calender"
+                className="px-4 py-2 text-white"
+              >
+                Calender
+              </NavigationMenuLink>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </header>

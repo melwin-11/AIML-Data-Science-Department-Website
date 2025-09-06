@@ -1,8 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -11,36 +10,8 @@ import {
   NavigationMenuContent,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -65,33 +36,32 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
-export default function TeachersPage() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [labs, setLabs] = useState([]);
+export default function CalenderPage() {
+  const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch labs from API
   useEffect(() => {
-    async function fetchLabs() {
+    async function fetchEvents() {
       try {
-        const res = await fetch("http://localhost:5000/labs");
+        const res = await fetch("http://localhost:5000/aids-events");
         const data = await res.json();
-        setLabs(data);
+        setEvents(
+          data.map((e: any) => ({
+            title: e.title,
+            start: e.start,
+            end: e.end,
+            allDay: e.allDay ?? true,
+            description: e.description ?? "",
+          }))
+        );
       } catch (err) {
-        setLabs([]);
+        setEvents([]);
       } finally {
         setLoading(false);
       }
     }
-    fetchLabs();
+    fetchEvents();
   }, []);
-
-  // Filter labs: show only matches when searching, else show all
-  const filteredLabs = React.useMemo(() => {
-    if (!searchQuery) return labs;
-    const lower = searchQuery.toLowerCase();
-    return labs.filter((lab) => lab.name.toLowerCase().includes(lower));
-  }, [labs, searchQuery]);
 
   return (
     <div className="landing-page">
@@ -131,14 +101,13 @@ export default function TeachersPage() {
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
-
-            {/* Other menu items */}
             <NavigationMenuItem>
               <Link href="/lab" legacyBehavior passHref>
-                <NavigationMenuLink className="px-4 py-2 text-white">Lab</NavigationMenuLink>
+                <NavigationMenuLink className="px-4 py-2 text-white">
+                  Lab
+                </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link href="/teachers" className="px-4 py-2 text-white">
@@ -146,7 +115,6 @@ export default function TeachersPage() {
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
               <NavigationMenuLink
                 href="/login"
@@ -155,7 +123,6 @@ export default function TeachersPage() {
                 Students
               </NavigationMenuLink>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
               <NavigationMenuLink
                 href="/projects"
@@ -164,7 +131,6 @@ export default function TeachersPage() {
                 Projects
               </NavigationMenuLink>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
               <NavigationMenuLink
                 href="/calender"
@@ -176,53 +142,21 @@ export default function TeachersPage() {
           </NavigationMenuList>
         </NavigationMenu>
       </header>
-
-      {/* Main Content */}
       <main className="flex flex-col items-center p-4">
-        <h1 className="text-4xl font-bold mb-5">LabAtlas</h1>
-        <Card>
-          <CardHeader>
-            <CardTitle>LabAtlas - Your Digital Compass for Labs</CardTitle>
-            <CardDescription>
-              Find and explore all labs in the department with ease.
-            </CardDescription>
-            <Input
-              type="text"
-              placeholder="Search for Labs ..."
-              className="mt-4"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+        <h1 className="text-4xl font-bold mb-6">Department Events Calender</h1>
+        <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-6">
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <FullCalendar
+              plugins={[dayGridPlugin]}
+              initialView="dayGridMonth"
+              height="auto"
+              events={events}
             />
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div>Loading...</div>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Lab Name</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>Status</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredLabs.map((lab, index) => (
-                    <TableRow key={lab._id || index}>
-                      <TableCell>{lab.name}</TableCell>
-                      <TableCell>{lab.location}</TableCell>
-                      <TableCell className="bg-green">
-                        {lab.status ? "Available" : "Unavailable"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </CardContent>
-        </Card>
+          )}
+        </div>
       </main>
     </div>
   );
 }
-

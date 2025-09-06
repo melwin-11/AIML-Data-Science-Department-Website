@@ -11,8 +11,8 @@ const nextConfig = {
       "cdn.analyticsvidhya.com",
       "www.appstud.com",
       "www.researchgate.net",
-      "i.pravatar.cc"
-      // add any other external domains you use for images
+      "i.pravatar.cc",
+      "kp.christuniversity.in"
     ],
   },
 };
