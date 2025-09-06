@@ -6,6 +6,7 @@ const userRoutes = require("./routes/userRoutes");
 const labsRoutes = require("./routes/labsRoutes");
 const aidsEventsRoutes = require("./routes/aidsEvents");
 const projectsRoutes = require("./routes/projects");
+const facultyDetailsRoutes = require("./routes/facultyDetails");
 const app = express();
 
 // ✅ Middleware
@@ -31,6 +32,7 @@ app.use("/api/users", userRoutes);
 app.use("/labs", labsRoutes);
 app.use("/aids-events", aidsEventsRoutes);
 app.use("/projects", projectsRoutes);
+app.use("/faculty-details", facultyDetailsRoutes);
 
 app.get("/", (req, res) => {
   res.send("✅ API is running");
@@ -41,3 +43,5 @@ app.listen(config.port, () => {
   console.log(`🚀 Server running on port ${config.port}`);
   console.log(`[${new Date().toISOString()}] Ready for requests`);
 });
+
+// No changes needed if /aids-events is already mounted and CORS is enabled for frontend
