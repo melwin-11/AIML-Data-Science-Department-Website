@@ -16,7 +16,7 @@ The backend uses **MongoDB Atlas** for cloud database management, and the app is
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend**: Next.js (React), TailwindCSS (if used)
+- **Frontend**: Next.js (React), TailwindCSS 
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB Atlas
 - **Authentication**: JSON Web Token (JWT)
@@ -66,5 +66,3 @@ Run the frontend:
     ->JWT_SECRET
 
     ->PORT
-
-4.) Deploy 🚀
