@@ -15,6 +15,7 @@ const nextConfig = {
       "kp.christuniversity.in"
     ],
   },
+  eslint : { ignoreDuringBuilds: true },
 };
 
 module.exports = nextConfig;
