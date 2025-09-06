@@ -39,10 +39,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+interface Faculty {
+  name: string;
+  specialization: string;
+  department: string;
+  Cubicle?: string;
+  Email?: string;
+  img?: string;
+}
+
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string }
->(({ className, title, children, ...props }, ref) => {
+>(({ title, children, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -64,7 +73,7 @@ ListItem.displayName = "ListItem";
 
 export default function TeachersPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [facultyData, setFacultyData] = useState([]);
+  const [facultyData, setFacultyData] = useState<Faculty[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch faculty data from API
@@ -74,7 +83,7 @@ export default function TeachersPage() {
         const res = await fetch("http://localhost:5000/faculty-details");
         const data = await res.json();
         setFacultyData(data);
-      } catch (err) {
+      } catch {
         setFacultyData([]);
       } finally {
         setLoading(false);
@@ -85,7 +94,7 @@ export default function TeachersPage() {
 
   // Filtering logic
   const filteredFaculty = searchQuery
-    ? facultyData.filter((faculty: any) =>
+    ? facultyData.filter((faculty) =>
         faculty.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : facultyData;
@@ -206,7 +215,7 @@ export default function TeachersPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredFaculty.map((faculty: any, index: number) => (
+                    {filteredFaculty.map((faculty, index) => (
                       <TableRow key={index}>
                         <TableCell>{faculty.name}</TableCell>
                         <TableCell>{faculty.specialization}</TableCell>

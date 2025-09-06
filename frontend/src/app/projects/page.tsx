@@ -12,37 +12,15 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
   Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
+  CardDescription,
+  CardContent,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Progress } from "@/components/ui/progress"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string }
@@ -113,7 +91,7 @@ export default function TeachersPage() {
               <NavigationMenuTrigger
                 className="px-4 py-2 text-white bg-transparent shadow-none border-none hover:bg-transparent hover:text-gray-300 focus:outline-none"
               >
-               <Link href='/'>Home</Link>
+                <Link href="/">Home</Link>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
@@ -136,19 +114,17 @@ export default function TeachersPage() {
             {/* Other menu items */}
             <NavigationMenuItem>
               <Link href="/lab" legacyBehavior passHref>
-                <NavigationMenuLink className="px-4 py-2 text-white">
-                  Lab
-                </NavigationMenuLink>
+                <NavigationMenuLink className="px-4 py-2 text-white">Lab</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
 
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link href="/teachers" className="px-4 py-2 text-white">
-          Faculty
-          </Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/teachers" className="px-4 py-2 text-white">
+                  Faculty
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
 
             <NavigationMenuItem>
               <NavigationMenuLink
@@ -225,6 +201,30 @@ export default function TeachersPage() {
                             <p className="text-sm font-medium mb-1">Progress</p>
                             <Progress value={project.progress} className="w-full" />
                           </div>
+                          <div className="flex flex-col items-center">
+                            <p className="text-sm font-medium mb-1">Contributors</p>
+                            <div className="flex -space-x-2">
+                              {project.contributors && project.contributors.map((contrib, i) => (
+                                <Avatar key={i}>
+                                  <AvatarImage src={contrib.src} />
+                                  <AvatarFallback>{contrib.fallback}</AvatarFallback>
+                                </Avatar>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </main>
+    </div>
+  );
+}
                           <div className="flex flex-col items-center">
                             <p className="text-sm font-medium mb-1">Contributors</p>
                             <div className="flex -space-x-2">

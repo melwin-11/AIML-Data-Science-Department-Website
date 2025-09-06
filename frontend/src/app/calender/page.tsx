@@ -13,10 +13,18 @@ import {
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
+type CalendarEvent = {
+  title: string;
+  start: string;
+  end: string;
+  allDay: boolean;
+  description: string;
+};
+
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { title: string }
->(({ className, title, children, ...props }, ref) => {
+>(({ title, children, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -37,7 +45,7 @@ const ListItem = React.forwardRef<
 ListItem.displayName = "ListItem";
 
 export default function CalenderPage() {
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,7 +54,7 @@ export default function CalenderPage() {
         const res = await fetch("http://localhost:5000/aids-events");
         const data = await res.json();
         setEvents(
-          data.map((e: any) => ({
+          data.map((e: CalendarEvent) => ({
             title: e.title,
             start: e.start,
             end: e.end,
@@ -54,8 +62,6 @@ export default function CalenderPage() {
             description: e.description ?? "",
           }))
         );
-      } catch (err) {
-        setEvents([]);
       } finally {
         setLoading(false);
       }

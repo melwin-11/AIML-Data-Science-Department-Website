@@ -14,33 +14,19 @@ import {
 import {
   Table,
   TableBody,
-  TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
+  TableCell,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -211,6 +197,20 @@ export default function TeachersPage() {
                     <TableRow key={lab._id || index}>
                       <TableCell>{lab.name}</TableCell>
                       <TableCell>{lab.location}</TableCell>
+                      <TableCell className="bg-green">
+                        {lab.status ? "Available" : "Unavailable"}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </CardContent>
+        </Card>
+      </main>
+    </div>
+  );
+}
                       <TableCell className="bg-green">
                         {lab.status ? "Available" : "Unavailable"}
                       </TableCell>

@@ -27,11 +27,37 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from "@/components/ui/navigation-menu";
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+} from "@/components/ui/navigation-menu";
+
+type Attendance = {
+  Course: string;
+  TotalClassesPresent: number;
+  TotalClassesConducted: number;
+  Attendance: string;
+};
+type Grade = {
+  Course: string;
+  CIA_1: number;
+  MSE: number;
+  CIA_3: number;
+};
+type Profile = {
+  name: string;
+  registerNumber: string;
+  attendanceChartData: { Semester: string; Attendance: number }[];
+  currentSemesterAttendance: Attendance[];
+  gradesChartData: { Semester: string; CGPA: number }[];
+  currentSemesterGrades: Grade[];
+};
 
 export default function StudentPage() {
   const router = useRouter();
-  const [profile, setProfile] = useState<any | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Fetch profile only if logged in
@@ -153,14 +179,16 @@ export default function StudentPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {profile.currentSemesterAttendance.map((c: any, i: number) => (
-                      <TableRow key={i}>
-                        <TableCell>{c.Course}</TableCell>
-                        <TableCell>{c.TotalClassesPresent}</TableCell>
-                        <TableCell>{c.TotalClassesConducted}</TableCell>
-                        <TableCell>{c.Attendance}</TableCell>
-                      </TableRow>
-                    ))}
+                    {profile.currentSemesterAttendance.map(
+                      (c: Attendance, i: number) => (
+                        <TableRow key={i}>
+                          <TableCell>{c.Course}</TableCell>
+                          <TableCell>{c.TotalClassesPresent}</TableCell>
+                          <TableCell>{c.TotalClassesConducted}</TableCell>
+                          <TableCell>{c.Attendance}</TableCell>
+                        </TableRow>
+                      )
+                    )}
                   </TableBody>
                 </Table>
               ) : (
@@ -210,14 +238,16 @@ export default function StudentPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {profile.currentSemesterGrades.map((g: any, i: number) => (
-                      <TableRow key={i}>
-                        <TableCell>{g.Course}</TableCell>
-                        <TableCell>{g.CIA_1}</TableCell>
-                        <TableCell>{g.MSE}</TableCell>
-                        <TableCell>{g.CIA_3}</TableCell>
-                      </TableRow>
-                    ))}
+                    {profile.currentSemesterGrades.map(
+                      (g: Grade, i: number) => (
+                        <TableRow key={i}>
+                          <TableCell>{g.Course}</TableCell>
+                          <TableCell>{g.CIA_1}</TableCell>
+                          <TableCell>{g.MSE}</TableCell>
+                          <TableCell>{g.CIA_3}</TableCell>
+                        </TableRow>
+                      )
+                    )}
                   </TableBody>
                 </Table>
               ) : (
