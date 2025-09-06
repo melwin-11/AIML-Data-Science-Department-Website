@@ -30,31 +30,31 @@ The backend uses **MongoDB Atlas** for cloud database management, and the app is
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the Repository
-git clone https://github.com/your-username/departmental-website.git
-cd departmental-website
+    ->git clone https://github.com/your-username/departmental-website.git
+    ->cd departmental-website
 
 ### 2. Backend Setup
-cd backend
-npm install
+    -> cd backend
+    -> npm install
 
 Create a .env file inside backend/ with the following:
 
-PORT=5000
-MONGO_URI=your_mongodb_atlas_connection_string
-JWT_SECRET=your_secret_key
+    -> PORT=5000
+    -> MONGO_URI=your_mongodb_atlas_connection_string
+    -> JWT_SECRET=your_secret_key
 
 
 node server.js
 
 
 ### 3. Frontend Setup
-cd ../frontend
-npm install
+    -> cd ../frontend
+    -> npm install
 
 
 Run the frontend:
 
-npm run dev
+    ->npm run dev
 
 ### 4. Deployment
 1.) Push your code to GitHub.
