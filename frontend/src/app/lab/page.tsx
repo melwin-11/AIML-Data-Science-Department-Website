@@ -67,7 +67,7 @@ export default function TeachersPage() {
   useEffect(() => {
     async function fetchLabs() {
       try {
-        const res = await fetch("http://localhost:5000/labs");
+        const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/labs');
         const data = await res.json();
         setLabs(data);
       } catch {

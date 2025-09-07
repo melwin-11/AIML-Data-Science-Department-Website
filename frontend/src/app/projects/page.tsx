@@ -63,7 +63,7 @@ export default function TeachersPage() {
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const res = await fetch("http://localhost:5000/projects");
+        const res = await fetch("${process.env.NEXT_PUBLIC_API_URL}/projects");
         const data = await res.json();
         setProjects(data);
       } catch {

@@ -80,7 +80,7 @@ export default function TeachersPage() {
   useEffect(() => {
     async function fetchFaculty() {
       try {
-        const res = await fetch("http://localhost:5000/faculty-details");
+        const res = await fetch("${process.env.NEXT_PUBLIC_API_URL}/faculty-details");
         const data = await res.json();
         setFacultyData(data);
       } catch {
