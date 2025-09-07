@@ -51,7 +51,7 @@ export default function CalenderPage() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/aids-events');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/aids-events`);
         const data = await res.json();
         setEvents(
           data.map((e: CalendarEvent) => ({
