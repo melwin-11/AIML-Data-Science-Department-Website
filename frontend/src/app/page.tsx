@@ -165,6 +165,15 @@ export default function LandingPage() {
 
             <NavigationMenuItem>
               <NavigationMenuLink
+                href="/projects"
+                className="px-4 py-2 text-white"
+              >
+                Faculty login
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink
                 href="/calender"
                 className="px-4 py-2 text-white"
               >

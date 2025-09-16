@@ -51,7 +51,7 @@ export default function LoginPage() {
           Login Page
         </h1>
         <p className="text-gray-300 mb-8 text-center">
-          Access the AIDS department portal
+          Access the AIML & DS department portal
         </p>
 
         <div className="relative p-[3px] rounded-2xl">
