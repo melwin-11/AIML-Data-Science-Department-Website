@@ -186,11 +186,11 @@ export default function TeachersPage() {
 
       {/* Main Content */}
       <main className="flex flex-col items-center p-4">
-        <h1 className="text-4xl font-bold mb-6">AI&DS Faculty</h1>
+        <h1 className="text-4xl font-bold mb-6">AIML & DS Faculty</h1>
         <div className="w-full max-w-4xl">
           <Card>
             <CardHeader>
-              <CardTitle>AI&DS Faculty Members</CardTitle>
+              <CardTitle>AIML & DS Faculty Members</CardTitle>
               <CardDescription>
                 Find your respective faculty member
               </CardDescription>

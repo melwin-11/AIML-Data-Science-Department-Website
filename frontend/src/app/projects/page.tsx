@@ -171,7 +171,7 @@ export default function TeachersPage() {
         <div className="w-full max-w-4xl">
           <Card>
             <CardHeader>
-              <CardTitle>AIDS Department Research/Project Hub</CardTitle>
+              <CardTitle>AIML & DS Department Research/Project Hub</CardTitle>
               <CardDescription>
                 Explore a diverse range of projects and research initiatives led by our students and faculty
               </CardDescription>
