@@ -7,6 +7,7 @@ const labsRoutes = require("./routes/labsRoutes");
 const aidsEventsRoutes = require("./routes/aidsEvents");
 const projectsRoutes = require("./routes/projects");
 const facultyDetailsRoutes = require("./routes/facultyDetails");
+const facultyLmsRoutes = require("./routes/facultyms");
 const app = express();
 
 // ✅ Middleware
@@ -33,6 +34,7 @@ app.use("/labs", labsRoutes);
 app.use("/aids-events", aidsEventsRoutes);
 app.use("/projects", projectsRoutes);
 app.use("/faculty-details", facultyDetailsRoutes);
+app.use("/api/faculty", facultyLmsRoutes);
 
 app.get("/", (req, res) => {
   res.send("✅ API is running");

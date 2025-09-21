@@ -17,15 +17,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   NavigationMenu,
@@ -33,51 +24,65 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-type Attendance = {
-  Course: string;
-  TotalClassesPresent: number;
-  TotalClassesConducted: number;
-  Attendance: string;
-};
-type Grade = {
-  Course: string;
-  CIA_1: number;
-  MSE: number;
-  CIA_3: number;
-};
-type Profile = {
+type StudentMarks = {
+  studentId: string;
   name: string;
-  registerNumber: string;
-  attendanceChartData: { Semester: string; Attendance: number }[];
-  currentSemesterAttendance: Attendance[];
-  gradesChartData: { Semester: string; CGPA: number }[];
-  currentSemesterGrades: Grade[];
+  marks: {
+    CIA1: number;
+    CIA2: number;
+    CIA3: number;
+    ESE: number;
+  };
 };
 
-export default function StudentPage() {
+type ClassAllotment = {
+  classId: string;
+  subject: string;
+  students: StudentMarks[];
+};
+
+type MentorshipStudent = {
+  studentId: string;
+  name: string;
+  progress: {
+    academic: string;
+    attendance: string;
+    remarks: string;
+  };
+};
+
+type FacultyProfile = {
+  name: string;
+  email: string;
+  allotedClasses: ClassAllotment[];
+  mentorship: MentorshipStudent[];
+};
+
+export default function TeacherLMSPage() {
   const router = useRouter();
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<FacultyProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch profile only if logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       setLoading(false);
-      return; // skip if not logged in
+      return;
     }
 
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/profile`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/faculty/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        if (!res.ok) throw new Error("Failed to fetch profile");
+        if (!res.ok) throw new Error("Failed to fetch faculty profile");
         const data = await res.json();
         setProfile(data);
       } catch (err) {
-        console.error("Error fetching profile:", err);
+        console.error("Error fetching faculty profile:", err);
         router.push("/login");
       } finally {
         setLoading(false);
@@ -88,24 +93,42 @@ export default function StudentPage() {
   }, [router]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        Loading data...
-      </div>
-    );
+    return <div className="min-h-screen flex items-center justify-center bg-black text-white">Loading...</div>;
   }
 
   if (!profile) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        No profile data found
-      </div>
-    );
+    return <div className="min-h-screen flex items-center justify-center bg-black text-white">No profile found</div>;
   }
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
-    router.push("./");
+    router.push("/");
+  };
+
+  const updateMarks = async (classId: string, studentId: string, marks: StudentMarks["marks"]) => {
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/faculty/update-marks`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ classId, studentId, marks }),
+      });
+      alert("Marks updated!");
+    } catch (err) {
+      console.error("Error updating marks:", err);
+    }
+  };
+
+  const updateMentorship = async (studentId: string, progress: MentorshipStudent["progress"]) => {
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/faculty/update-mentorship`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentId, progress }),
+      });
+      alert("Mentorship updated!");
+    } catch (err) {
+      console.error("Error updating mentorship:", err);
+    }
   };
 
   return (
@@ -114,17 +137,12 @@ export default function StudentPage() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-2xl font-bold">Welcome, {profile.name}</h1>
-          <p className="text-sm text-gray-400">
-            Register Number: {profile.registerNumber}
-          </p>
+          <p className="text-sm text-gray-400">{profile.email}</p>
         </div>
         <NavigationMenu>
           <NavigationMenuList className="flex space-x-6">
             <NavigationMenuItem>
-              <NavigationMenuLink
-                className="cursor-pointer hover:text-red-500"
-                onClick={handleSignOut}
-              >
+              <NavigationMenuLink className="cursor-pointer hover:text-red-500" onClick={handleSignOut}>
                 Sign Out
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -133,128 +151,103 @@ export default function StudentPage() {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="attendance">
+      <Tabs defaultValue="allotments">
         <TabsList>
-          <TabsTrigger value="attendance">Attendance</TabsTrigger>
-          <TabsTrigger value="grades">Grades</TabsTrigger>
+          <TabsTrigger value="allotments">Alloted Classes</TabsTrigger>
+          <TabsTrigger value="mentorship">Mentorship</TabsTrigger>
         </TabsList>
 
-        {/* Attendance Tab */}
-        <TabsContent value="attendance">
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>Attendance Overview</CardTitle>
-              <CardDescription>Semester-wise attendance percentage</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {profile.attendanceChartData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={profile.attendanceChartData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="Semester" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="Attendance" stroke="#8884d8" />
-                  </LineChart>
-                </ResponsiveContainer>
-              ) : (
-                <p>No attendance records found.</p>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>Current Semester Attendance</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {profile.currentSemesterAttendance.length > 0 ? (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Course</TableHead>
-                      <TableHead>Present</TableHead>
-                      <TableHead>Conducted</TableHead>
-                      <TableHead>Attendance</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {profile.currentSemesterAttendance.map(
-                      (c: Attendance, i: number) => (
+        {/* Alloted Classes Tab */}
+        <TabsContent value="allotments">
+          {profile.allotedClasses.length > 0 ? (
+            profile.allotedClasses.map((cls, idx) => (
+              <Card key={idx} className="mb-6">
+                <CardHeader>
+                  <CardTitle>{cls.classId} - {cls.subject}</CardTitle>
+                  <CardDescription>Students and their grades</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Student</TableHead>
+                        <TableHead>CIA 1</TableHead>
+                        <TableHead>CIA 2</TableHead>
+                        <TableHead>CIA 3</TableHead>
+                        <TableHead>ESE</TableHead>
+                        <TableHead>Update</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {cls.students.map((stu, i) => (
                         <TableRow key={i}>
-                          <TableCell>{c.Course}</TableCell>
-                          <TableCell>{c.TotalClassesPresent}</TableCell>
-                          <TableCell>{c.TotalClassesConducted}</TableCell>
-                          <TableCell>{c.Attendance}</TableCell>
+                          <TableCell>{stu.name}</TableCell>
+                          {["CIA1","CIA2","CIA3","ESE"].map((field) => (
+                            <TableCell key={field}>
+                              <Input
+                                type="number"
+                                defaultValue={stu.marks[field as keyof StudentMarks["marks"]]}
+                                onBlur={(e) =>
+                                  updateMarks(cls.classId, stu.studentId, {
+                                    ...stu.marks,
+                                    [field]: Number(e.target.value),
+                                  })
+                                }
+                                className="w-16 bg-gray-800 text-white"
+                              />
+                            </TableCell>
+                          ))}
+                          <TableCell>
+                            <Button
+                              size="sm"
+                              onClick={() => updateMarks(cls.classId, stu.studentId, stu.marks)}
+                            >
+                              Save
+                            </Button>
+                          </TableCell>
                         </TableRow>
-                      )
-                    )}
-                  </TableBody>
-                </Table>
-              ) : (
-                <p>No attendance data found.</p>
-              )}
-            </CardContent>
-          </Card>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <p>No class allotments found.</p>
+          )}
         </TabsContent>
 
-        {/* Grades Tab */}
-        <TabsContent value="grades">
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>Grades Overview</CardTitle>
-              <CardDescription>Semester-wise CGPA</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {profile.gradesChartData.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={profile.gradesChartData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="Semester" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="CGPA" stroke="#82ca9d" />
-                  </LineChart>
-                </ResponsiveContainer>
-              ) : (
-                <p>No grades records found.</p>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Current Semester Grades</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {profile.currentSemesterGrades.length > 0 ? (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Course</TableHead>
-                      <TableHead>CIA 1</TableHead>
-                      <TableHead>MSE</TableHead>
-                      <TableHead>CIA 3</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {profile.currentSemesterGrades.map(
-                      (g: Grade, i: number) => (
-                        <TableRow key={i}>
-                          <TableCell>{g.Course}</TableCell>
-                          <TableCell>{g.CIA_1}</TableCell>
-                          <TableCell>{g.MSE}</TableCell>
-                          <TableCell>{g.CIA_3}</TableCell>
-                        </TableRow>
-                      )
-                    )}
-                  </TableBody>
-                </Table>
-              ) : (
-                <p>No grades data found.</p>
-              )}
-            </CardContent>
-          </Card>
+        {/* Mentorship Tab */}
+        <TabsContent value="mentorship">
+          {profile.mentorship.length > 0 ? (
+            profile.mentorship.map((m, idx) => (
+              <Card key={idx} className="mb-6">
+                <CardHeader>
+                  <CardTitle>{m.name}</CardTitle>
+                  <CardDescription>Mentorship Progress</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p><strong>Academic:</strong> {m.progress.academic}</p>
+                  <p><strong>Attendance:</strong> {m.progress.attendance}</p>
+                  <div className="mt-2">
+                    <Input
+                      placeholder="Update remarks"
+                      defaultValue={m.progress.remarks}
+                      onBlur={(e) =>
+                        updateMentorship(m.studentId, {
+                          ...m.progress,
+                          remarks: e.target.value,
+                        })
+                      }
+                      className="bg-gray-800 text-white"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <p>No mentorship records found.</p>
+          )}
         </TabsContent>
       </Tabs>
     </div>
