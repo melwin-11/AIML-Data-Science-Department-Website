@@ -1,12 +1,12 @@
-import express from "express";
-import FacultyLms from "../databases/models/facultyLms.js";
+const express = require("express");
+const FacultyLms = require("../databases/models/facultyLms");
 
 const router = express.Router();
 
 // Get faculty profile
 router.get("/profile", async (req, res) => {
   try {
-    const email = req.user.email; // assuming auth middleware sets req.user
+    const email = req.user?.email; // assuming auth middleware sets req.user
     const faculty = await FacultyLms.findOne({ email });
     if (!faculty) return res.status(404).json({ error: "Faculty not found" });
     res.json(faculty);
@@ -45,4 +45,4 @@ router.put("/update-mentorship", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

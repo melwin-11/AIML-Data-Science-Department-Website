@@ -7,7 +7,8 @@ const labsRoutes = require("./routes/labsRoutes");
 const aidsEventsRoutes = require("./routes/aidsEvents");
 const projectsRoutes = require("./routes/projects");
 const facultyDetailsRoutes = require("./routes/facultyDetails");
-const facultyLmsRoutes = require("./routes/facultyms");
+const facultyLmsRoutes = require("./routes/facultylms");
+
 const app = express();
 
 // ✅ Middleware
