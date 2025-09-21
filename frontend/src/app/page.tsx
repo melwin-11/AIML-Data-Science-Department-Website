@@ -81,16 +81,7 @@ export default function LandingPage() {
     <div className="landing-page">
       {/* Header */}
       <header className="p-4 shadow-md flex items-center bg-[#0A1A2F] text-white">
-        {/* Logo instead of text */}
-        <div className="relative w-40 h-16 mr-10">
-          <Image
-            src="/CULOGO25_White.png"
-            alt="Christ University Logo"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
+        
 
         {/* shadcn Navigation Menu */}
         <NavigationMenu className="ml-8">
@@ -150,10 +141,18 @@ export default function LandingPage() {
                 href="/login"
                 className="px-4 py-2 text-white"
               >
-                Students
+                Students Login
               </NavigationMenuLink>
             </NavigationMenuItem>
 
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                href="/facultylogin"
+                className="px-4 py-2 text-white"
+              >
+                Faculty login
+              </NavigationMenuLink>
+            </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink
                 href="/projects"
@@ -163,14 +162,6 @@ export default function LandingPage() {
               </NavigationMenuLink>
             </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="/projects"
-                className="px-4 py-2 text-white"
-              >
-                Faculty login
-              </NavigationMenuLink>
-            </NavigationMenuItem>
 
             <NavigationMenuItem>
               <NavigationMenuLink
@@ -182,6 +173,17 @@ export default function LandingPage() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+
+        {/* Logo instead of text */}
+        <div className="relative w-40 h-16 ml-auto">
+          <Image
+            src="/CULOGO25_White.png"
+            alt="Christ University Logo"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
       </header>
 
       {/* Hero Section with Carousel */}
