@@ -22,7 +22,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/faculty/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -31,7 +31,7 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || "Login failed");
+        setError(data.error || "Invalid credentials or faculty profile not found.");
         return;
       }
 

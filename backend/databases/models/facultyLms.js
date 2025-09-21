@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const MarksSchema = new mongoose.Schema({
   CIA1: Number,
@@ -36,4 +36,5 @@ const FacultyLmsSchema = new mongoose.Schema({
   mentorship: [MentorshipSchema],
 });
 
-export default mongoose.model("FacultyLms", FacultyLmsSchema,"facultylms");
+const FacultyLms = mongoose.model("FacultyLms", FacultyLmsSchema, "facultylms");
+module.exports = FacultyLms;

@@ -107,9 +107,13 @@ export default function TeacherLMSPage() {
 
   const updateMarks = async (classId: string, studentId: string, marks: StudentMarks["marks"]) => {
     try {
+      const token = localStorage.getItem("token");
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/faculty/update-marks`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        method: "PATCH",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({ classId, studentId, marks }),
       });
       alert("Marks updated!");
@@ -120,9 +124,13 @@ export default function TeacherLMSPage() {
 
   const updateMentorship = async (studentId: string, progress: MentorshipStudent["progress"]) => {
     try {
+      const token = localStorage.getItem("token");
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/faculty/update-mentorship`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        method: "PATCH",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({ studentId, progress }),
       });
       alert("Mentorship updated!");

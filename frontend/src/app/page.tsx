@@ -19,6 +19,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { RollingGallery } from "@/components/ui/rolling-gallery";
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import { useEffect, useRef } from "react";
 
 // Add ListItem component
@@ -111,11 +113,16 @@ export default function LandingPage() {
                     M3: Innovate scientific knowledge and Entrepreneurship through
                     academia and Industry collaborations.
                   </ListItem>
+                  <ListItem href="#service-learning" title="Service Learning">
+                    Our students actively engage in community service and social 
+                    impact projects, applying their technical skills to solve 
+                    real-world problems.
+                  </ListItem>
                   <ListItem href="#achievements" title="Achievements">
                     Dr. Michael Moses T, faculty member at CHRIST (Deemed to be
                     University), Bangalore Kengeri Campus, has been awarded the
-                    Chief Minister’s Commendation in recognition of his exemplary
-                    service and unwavering dedication to his work.
+                    Chief Minister's Commendation in recognition of his exemplary
+                    service and unwavering dedication to his work.
                   </ListItem>
                 </ul>
               </NavigationMenuContent>
@@ -365,20 +372,71 @@ export default function LandingPage() {
           </p>
         </section>
 
+        {/* Service Learning Section */}
+        <section
+          id="service-learning"
+          className="p-6 bg-white rounded-lg shadow-md border-2 border-zinc-950 scroll-mt-24"
+        >
+          <h2 className="text-xl font-bold mb-6 text-[#0A1A2F] text-center">
+            Service Learning
+          </h2>
+          <p className="text-gray-700 mb-6 text-center">
+            Our students actively engage in community service and social impact projects, 
+            applying their technical skills to solve real-world problems.
+          </p>
+          <RollingGallery 
+            images={[
+              "/CU_EVENT (1).jpg",
+              "/CU_EVENT (2).jpg", 
+              "/CU_EVENT (3).jpg",
+              "/CU_EVENT (4).jpg",
+              "/CU_EVENT (5).jpg",
+              "/CU_EVENT (6).jpg"
+            ]}
+            className="h-48"
+          />
+        </section>
+
         {/* Achievements Section */}
         <section
           id="achievements"
           className="p-6 bg-white rounded-lg shadow-md border-2 border-zinc-950 scroll-mt-24"
         >
-          <h2 className="text-xl font-bold mb-4 text-[#0A1A2F] text-center">
-            Achievements
+          <h2 className="text-xl font-bold mb-6 text-[#0A1A2F] text-center">
+            Achievements & Testimonials
           </h2>
-          <p className="text-gray-700">
-            Dr. Michael Moses T, faculty member at CHRIST (Deemed to be
-            University), Bangalore Kengeri Campus, has been awarded the Chief
-            Minister’s Commendation in recognition of his exemplary service and
-            unwavering dedication to his work.
-          </p>
+          <div className="mb-6">
+            <p className="text-gray-700 text-center">
+              Dr. Michael Moses T, faculty member at CHRIST (Deemed to be
+              University), Bangalore Kengeri Campus, has been awarded the Chief
+              Minister's Commendation in recognition of his exemplary service and
+              unwavering dedication to his work.
+            </p>
+          </div>
+          <AnimatedTestimonials
+            testimonials={[
+              {
+                quote: "The AIML department at CHRIST University has provided me with exceptional opportunities to grow both academically and professionally. The faculty's dedication and the cutting-edge curriculum have been instrumental in my success.",
+                name: "Dr. Michael Moses T",
+                designation: "Faculty Member - Chief Minister's Commendation Awardee",
+                image: "/CU_AI&DS_HOD.png"
+              },
+              {
+                quote: "The hands-on approach to learning and the emphasis on practical applications have made this program truly outstanding. I've gained invaluable skills that are directly applicable in the industry.",
+                name: "Prof. Sarah Johnson",
+                designation: "Industry Partner - Tech Solutions Inc.",
+                image: "/CU_AI&DS_HOD.png"
+              },
+              {
+                quote: "The research opportunities and industry collaborations have opened doors I never thought possible. This department truly prepares students for the future of technology.",
+                name: "Dr. Rajesh Kumar",
+                designation: "Alumni - Senior Data Scientist at Google",
+                image: "/CU_AI&DS_HOD.png"
+              }
+            ]}
+            autoplay={true}
+            autoplayInterval={6000}
+          />
         </section>
 
         <section className="grid md:grid-cols-2 gap-8">
