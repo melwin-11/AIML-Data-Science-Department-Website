@@ -6,6 +6,9 @@ import Link from "next/link";
 import { Navigation } from "@/components/ui/navigation";
 import { Footer } from "@/components/ui/footer";
 import {
+  NavigationMenuLink,
+} from "@/components/ui/navigation-menu";
+import {
   Card,
   CardHeader,
   CardTitle,
