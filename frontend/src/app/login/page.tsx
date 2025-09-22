@@ -45,7 +45,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black">
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <div className="sticky top-0 z-50 p-4 shadow-md flex items-center bg-[#0A1A2F] text-white">
+        <div className="flex items-center space-x-8">
+          <Link href="/" className="text-xl font-bold">AIML & DS Department</Link>
+        </div>
+        <div className="ml-auto">
+          <Link href="/" className="px-4 py-2 text-white hover:text-gray-300">Back to Home</Link>
+        </div>
+      </div>
+      
+      <div className="flex items-center justify-center min-h-[calc(100vh-80px)] bg-black">
       <div className="flex flex-col items-center w-full max-w-md">
         <h1 className="text-4xl font-bold text-white mb-4 text-center">
           Login Page
@@ -102,6 +113,12 @@ export default function LoginPage() {
           </Card>
         </div>
       </div>
+      </div>
+      
+      {/* Footer */}
+      <footer className="bg-[#0A1A2F] text-white py-4 text-center text-sm">
+        <p>A collaborative creation by Melwin, Sania, Tom, Shawn Luke, and Shawn Joseph.</p>
+      </footer>
     </div>
   );
 }

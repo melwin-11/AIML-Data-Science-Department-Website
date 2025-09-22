@@ -19,8 +19,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { RollingGallery } from "@/components/ui/rolling-gallery";
+import { CircularGallery } from "@/components/ui/circular-gallery";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { Navigation } from "@/components/ui/navigation";
+import { Footer } from "@/components/ui/footer";
 import { useEffect, useRef } from "react";
 
 // Add ListItem component
@@ -81,117 +83,8 @@ export default function LandingPage() {
 
   return (
     <div className="landing-page">
-      {/* Header */}
-      <header className="p-4 shadow-md flex items-center bg-[#0A1A2F] text-white">
-        
-
-        {/* shadcn Navigation Menu */}
-        <NavigationMenu className="ml-8">
-          <NavigationMenuList>
-            {/* ✅ Home with 4 clickable dropdown boxes */}
-            <NavigationMenuItem>
-              <NavigationMenuTrigger
-                className="px-4 py-2 text-white bg-transparent shadow-none border-none hover:bg-transparent hover:text-gray-300 focus:outline-none"
-              >
-                <Link href="/">Home</Link>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
-                  <ListItem href="#about" title="About Us">
-                    The Department of Artificial Intelligence (AI), Machine Learning
-                    (ML) and Data Science (DS) is dedicated to advancing
-                    cutting-edge technologies that are shaping the future.
-                  </ListItem>
-                  <ListItem href="#curriculum" title="Curriculum">
-                    M1: Empowering individuals to ethically harness data and AI
-                    through accessible and value-driven curriculum.
-                    <br />
-                    M2: Foster a dynamic research environment that advances
-                    innovative and impactful solutions for the betterment of global
-                    well-being.
-                    <br />
-                    M3: Innovate scientific knowledge and Entrepreneurship through
-                    academia and Industry collaborations.
-                  </ListItem>
-                  <ListItem href="#service-learning" title="Service Learning">
-                    Our students actively engage in community service and social 
-                    impact projects, applying their technical skills to solve 
-                    real-world problems.
-                  </ListItem>
-                  <ListItem href="#achievements" title="Achievements">
-                    Dr. Michael Moses T, faculty member at CHRIST (Deemed to be
-                    University), Bangalore Kengeri Campus, has been awarded the
-                    Chief Minister's Commendation in recognition of his exemplary
-                    service and unwavering dedication to his work.
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-
-            {/* Other menu items stay the same */}
-            <NavigationMenuItem>
-              <Link href="/lab" legacyBehavior passHref>
-                <NavigationMenuLink className="px-4 py-2 text-white">Lab</NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <Link href="/teachers" className="px-4 py-2 text-white">
-                  Faculty
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="/login"
-                className="px-4 py-2 text-white"
-              >
-                Students Login
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="/facultylogin"
-                className="px-4 py-2 text-white"
-              >
-                Faculty login
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="/projects"
-                className="px-4 py-2 text-white"
-              >
-                Projects
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-
-
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                href="/calender"
-                className="px-4 py-2 text-white"
-              >
-                Calender
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-
-        {/* Logo instead of text */}
-        <div className="relative w-40 h-16 ml-auto">
-          <Image
-            src="/CULOGO25_White.png"
-            alt="Christ University Logo"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
-      </header>
+      {/* Navigation */}
+      <Navigation />
 
       {/* Hero Section with Carousel */}
       <section className="my-10 flex flex-col items-center">
@@ -219,98 +112,93 @@ export default function LandingPage() {
         </Carousel>
       </section>
 
-      {/* Vision, Mission, Note, Curriculum, Contact */}
-      <main className="px-6 space-y-8 max-w-4xl mx-auto scroll-smooth">
-        {/* Message from the HOD */}
-        <section className="space-y-4 border-2 border-zinc-950 p-4 rounded-lg bg-white shadow-md">
-          <h2 className="text-xl font-bold text-center">
+      {/* Main Content Sections */}
+      <main className="px-6 space-y-8 max-w-5xl mx-auto scroll-smooth">
+        
+        {/* 1. Message from Dean (first) */}
+        <section className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md">
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
+            Message from the Dean
+          </h2>
+          <AnimatedTestimonials
+            testimonials={[
+              {
+                quote: "Welcome to the School of Engineering and Technology (SoET) at CHRIST (Deemed to be University). Established in 2009, SoET is a unique and fastest-growing school that equips students and scholars with the skills and competencies necessary to navigate the complexities of today's dynamic world. The school offers a wide range of programmes approved by the University Grants Commission (UGC) and All India Council for Technical Education (AICTE) and accredited by the National Assessment and Accreditation Council (NAAC) and National Board for Accreditation (NBA) through a blend of project-based and multidisciplinary curricula in emerging technologies including Honors and Minors in AI&ML, Psychology, CIMA, Management, Geomatics, and Architecture. Our graduates stand out as exceptional problem-solvers, adept leaders, and skilled communicators through the holistic education imparted to them by the university.",
+                name: "Dean - School of Engineering and Technology",
+                designation: "CHRIST (Deemed to be University)",
+                image: "/CU_AI&DS_HOD.png"
+              }
+            ]}
+            autoplay={false}
+            className="max-w-4xl mx-auto"
+          />
+        </section>
+
+        {/* 2. Message from HOD (second) */}
+        <section className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md">
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
             Message from the HOD
           </h2>
-          <div className="flex flex-col md:flex-row gap-8">
-            <div className="md:w-1/3">
-              <Carousel className="w-full">
-                <CarouselContent>
-                  <CarouselItem>
-                    <div className="relative aspect-square">
-                      <Image
-                        src="/CU_AI&DS_HOD.png"
-                        alt="Head of Department"
-                        fill
+          <AnimatedTestimonials
+            testimonials={[
+              {
+                quote: "We are at the vanguard of a technological revolution in which data-driven solutions and intelligent systems are reshaping every industry. At CHRIST (Deemed to be University), the Department of AIML & DS is dedicated to fostering the next wave of researchers, innovators and moral AI experts who can develop significant answers to pressing problems. Academic rigour and experiential learning are integrated in our department. Our students participate in project-based learning, research, industry collaboration and internships as part of a comprehensive curriculum that is tailored to stay up with global advancements.",
+                name: "Dr. Michael Moses T",
+                designation: "Head of Department - AIML & DS",
+                image: "/CU_AI&DS_HOD.png"
+              }
+            ]}
+            autoplay={false}
+            className="max-w-4xl mx-auto"
+          />
+        </section>
 
-                        className="object-cover rounded-lg"
-                        priority
-                      />
-                    </div>
-                  </CarouselItem>
-                </CarouselContent>
-              </Carousel>
-            </div>
-            <div className="md:w-2/3">
+        {/* 3. Vision and Mission */}
+        <section className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md">
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
+            Vision and Mission
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-[#0A1A2F] text-center">
+                Vision
+              </h3>
               <p className="text-gray-700">
-                We are at the vanguard of a technological revolution in which
-                data-driven solutions and intelligent systems are reshaping every
-                industry. At CHRIST (Deemed to be University), the Department of
-                AIML & DS is dedicated to fostering the next wave of researchers,
-                innovators and moral AI experts who can develop significant
-                answers to pressing problems. Academic rigour and experiential
-                learning are integrated in our department. Our students participate
-                in project-based learning, research, industry collaboration and
-                internships as part of a comprehensive curriculum that is tailored
-                to stay up with global advancements. We place a strong emphasis on
-                holistic education, which promotes societal impact,
-                interdisciplinary learning, and critical thinking. We take great
-                pride in the lively learning environment we foster, our committed
-                faculty and our active student body. As we expand, we want to
-                establish ourselves as a centre for innovation and teaching in the
-                fields of artificial intelligence, machine learning and data
-                science. I encourage you to investigate the opportunities in our
-                department and work with us to create a future.
+                To excel in human-centred AI and data-driven innovation through
+                ethical research, societal well-being, and transformative
+                collaborations.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-[#0A1A2F] text-center">
+                Mission
+              </h3>
+              <p className="text-gray-700">
+                <span className="font-semibold">M1:</span> Empowering individuals to
+                ethically harness data and AI through accessible and value-driven
+                curriculum.
+                <br />
+                <br />
+                <span className="font-semibold">M2:</span> Foster a dynamic research
+                environment that advances innovative and impactful solutions for the
+                betterment of global well-being.
+                <br />
+                <br />
+                <span className="font-semibold">M3:</span> Innovate scientific
+                knowledge and Entrepreneurship through academia and Industry
+                collaborations
               </p>
             </div>
           </div>
         </section>
 
-        {/* Vision and Mission Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          <section className="p-6 bg-white rounded-lg shadow-md border-2 border-zinc-950">
-            <h2 className="text-xl font-bold mb-4 text-[#0A1A2F] text-center">
-              Vision
-            </h2>
-            <p className="text-gray-700">
-              To excel in human-centred AI and data-driven innovation through
-              ethical research, societal well-being, and transformative
-              collaborations.
-            </p>
-          </section>
-
-          <section className="p-6 bg-white rounded-lg shadow-md border-2 border-zinc-950">
-            <h2 className="text-xl font-bold mb-4 text-[#0A1A2F] text-center">
-              Mission
-            </h2>
-            <p className="text-gray-700">
-              <span className="font-semibold">M1:</span> Empowering individuals to
-              ethically harness data and AI through accessible and value-driven
-              curriculum.
-              <br />
-              <br />
-              <span className="font-semibold">M2:</span> Foster a dynamic research
-              environment that advances innovative and impactful solutions for the
-              betterment of global well-being.
-              <br />
-              <br />
-              <span className="font-semibold">M3:</span> Innovate scientific
-              knowledge and Entrepreneurship through academia and Industry
-              collaborations
-            </p>
-          </section>
-        </div>
-
-        {/* About Us Section */}
+        {/* 4. About Us */}
         <section
           id="about"
-          className="p-6 bg-white rounded-lg shadow-md border-2 border-zinc-950 scroll-mt-24"
+          className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md scroll-mt-24"
         >
-          <h2 className="text-xl font-bold mb-4 text-[#0A1A2F] text-center">
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
             About Us
           </h2>
           <p className="text-gray-700">
@@ -349,12 +237,59 @@ export default function LandingPage() {
           </p>
         </section>
 
-        {/* Curriculum Section */}
+        {/* 5. Internship Details and Top Companies */}
+        <section className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md">
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
+            Internship & Career Opportunities
+          </h2>
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Internship Details */}
+            <div className="flex-1">
+              <h3 className="text-xl font-bold mb-4 text-[#0A1A2F]">
+                Internship Details
+              </h3>
+              <p className="text-gray-700">
+                Our department offers comprehensive internship opportunities that provide students with hands-on experience in cutting-edge AI, Machine Learning, and Data Science technologies. Students have the opportunity to work on real-world projects, collaborate with industry professionals, and gain valuable insights into the latest technological advancements. Internships typically span 6-8 weeks during summer breaks and include mentorship from both faculty and industry experts. Students work on projects ranging from machine learning model development to data analysis and AI system implementation.
+              </p>
+            </div>
+
+            {/* Top Companies */}
+            <div className="flex-1">
+              <h3 className="text-xl font-bold mb-4 text-[#0A1A2F]">
+                Top Recruiting Companies
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                  <span className="text-gray-700 font-medium">Microsoft Corporation</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                  <span className="text-gray-700 font-medium">Google LLC</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                  <span className="text-gray-700 font-medium">Amazon Web Services</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">4</div>
+                  <span className="text-gray-700 font-medium">IBM Research</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">5</div>
+                  <span className="text-gray-700 font-medium">Intel Corporation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 7. Curriculum */}
         <section
           id="curriculum"
-          className="p-6 bg-white rounded-lg shadow-md border-2 border-zinc-950 scroll-mt-24"
+          className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md scroll-mt-24"
         >
-          <h2 className="text-xl font-bold mb-4 text-[#0A1A2F] text-center">
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
             Curriculum
           </h2>
           <p className="text-gray-700">
@@ -372,38 +307,28 @@ export default function LandingPage() {
           </p>
         </section>
 
-        {/* Service Learning Section */}
+        {/* 6. Service Learning */}
         <section
           id="service-learning"
-          className="p-6 bg-white rounded-lg shadow-md border-2 border-zinc-950 scroll-mt-24"
+          className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md scroll-mt-24"
         >
-          <h2 className="text-xl font-bold mb-6 text-[#0A1A2F] text-center">
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
             Service Learning
           </h2>
-          <p className="text-gray-700 mb-6 text-center">
+          <p className="text-gray-700 mb-6 text-center max-w-3xl mx-auto">
             Our students actively engage in community service and social impact projects, 
             applying their technical skills to solve real-world problems.
           </p>
-          <RollingGallery 
-            images={[
-              "/CU_EVENT (1).jpg",
-              "/CU_EVENT (2).jpg", 
-              "/CU_EVENT (3).jpg",
-              "/CU_EVENT (4).jpg",
-              "/CU_EVENT (5).jpg",
-              "/CU_EVENT (6).jpg"
-            ]}
-            className="h-48"
-          />
+          
         </section>
 
-        {/* Achievements Section */}
+        {/* 8. Testimonials */}
         <section
           id="achievements"
-          className="p-6 bg-white rounded-lg shadow-md border-2 border-zinc-950 scroll-mt-24"
+          className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md scroll-mt-24"
         >
-          <h2 className="text-xl font-bold mb-6 text-[#0A1A2F] text-center">
-            Achievements & Testimonials
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
+            Testimonials
           </h2>
           <div className="mb-6">
             <p className="text-gray-700 text-center">
@@ -439,49 +364,10 @@ export default function LandingPage() {
           />
         </section>
 
-        <section className="grid md:grid-cols-2 gap-8">
-          {/* University Info */}
-          <div className="">
-            <h2 className="text-xl font-bold">
-              CHRIST(DEEMED TO BE UNIVERSITY)
-            </h2>
-            <p>
-              Kanmanike,Kumbalgodu,Mysore Road,Bangalore,Karnatake-560074
-            </p>
-            <p>Tel: 080 62689800 / 9828 / 9820 / 9800</p>
-            <p>Bengaluru, Karnataka 560074</p>
-            <p>Fax: +91 806268 9820</p>
-            <p>Email: admissions.kengeri@christuniversity.in</p>
-          </div>
-
-          {/* Relevant Links */}
-          <div className="">
-            <h2 className="text-xl font-bold">Relevant Links</h2>
-            <div className="space-y-1">
-              <a className="block text-blue-600 hover:underline cursor-pointer">
-                UBA
-              </a>
-              <a className="block text-blue-600 hover:underline cursor-pointer">
-                FCRA
-              </a>
-              <a className="block text-blue-600 hover:underline cursor-pointer">
-                ALUMNI
-              </a>
-              <a className="block text-blue-600 hover:underline cursor-pointer">
-                IQAC
-              </a>
-              <a className="block text-blue-600 hover:underline cursor-pointer">
-                CAREERS
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="mt-8 py-4 text-center text-sm ">
-          A collaborative creation by Melwin, Sania, Tom, Shawn Luke, and Shawn Joseph.
-        </footer>
       </main>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

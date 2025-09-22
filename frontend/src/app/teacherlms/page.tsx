@@ -18,12 +18,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuLink,
-} from "@/components/ui/navigation-menu";
+import { Navigation } from "@/components/ui/navigation";
+import { Footer } from "@/components/ui/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -140,23 +136,25 @@ export default function TeacherLMSPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
-      {/* Top Navigation */}
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold">Welcome, {profile.name}</h1>
-          <p className="text-sm text-gray-400">{profile.email}</p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <Navigation />
+      
+      {/* Main Content */}
+      <div className="bg-black text-white p-6">
+        {/* Top Navigation */}
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-2xl font-bold">Welcome, {profile.name}</h1>
+            <p className="text-sm text-gray-400">{profile.email}</p>
+          </div>
+          <button 
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </button>
         </div>
-        <NavigationMenu>
-          <NavigationMenuList className="flex space-x-6">
-            <NavigationMenuItem>
-              <NavigationMenuLink className="cursor-pointer hover:text-red-500" onClick={handleSignOut}>
-                Sign Out
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
 
       {/* Tabs */}
       <Tabs defaultValue="allotments">
@@ -258,6 +256,10 @@ export default function TeacherLMSPage() {
           )}
         </TabsContent>
       </Tabs>
+      </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
