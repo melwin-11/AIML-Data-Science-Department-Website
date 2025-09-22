@@ -126,7 +126,7 @@ export default function LandingPage() {
                 quote: "Welcome to the School of Engineering and Technology (SoET) at CHRIST (Deemed to be University). Established in 2009, SoET is a unique and fastest-growing school that equips students and scholars with the skills and competencies necessary to navigate the complexities of today's dynamic world. The school offers a wide range of programmes approved by the University Grants Commission (UGC) and All India Council for Technical Education (AICTE) and accredited by the National Assessment and Accreditation Council (NAAC) and National Board for Accreditation (NBA) through a blend of project-based and multidisciplinary curricula in emerging technologies including Honors and Minors in AI&ML, Psychology, CIMA, Management, Geomatics, and Architecture. Our graduates stand out as exceptional problem-solvers, adept leaders, and skilled communicators through the holistic education imparted to them by the university.",
                 name: "Dean - School of Engineering and Technology",
                 designation: "CHRIST (Deemed to be University)",
-                image: "/CU_AI&DS_HOD.png"
+                image: "/dean.webp"
               }
             ]}
             autoplay={false}
@@ -158,40 +158,40 @@ export default function LandingPage() {
           <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
             Vision and Mission
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4 text-[#0A1A2F] text-center">
-                Vision
+              Vision
               </h3>
-              <p className="text-gray-700">
-                To excel in human-centred AI and data-driven innovation through
-                ethical research, societal well-being, and transformative
-                collaborations.
-              </p>
+            <p className="text-gray-700">
+              To excel in human-centred AI and data-driven innovation through
+              ethical research, societal well-being, and transformative
+              collaborations.
+            </p>
             </div>
 
             <div>
               <h3 className="text-xl font-bold mb-4 text-[#0A1A2F] text-center">
-                Mission
+              Mission
               </h3>
-              <p className="text-gray-700">
-                <span className="font-semibold">M1:</span> Empowering individuals to
-                ethically harness data and AI through accessible and value-driven
-                curriculum.
-                <br />
-                <br />
-                <span className="font-semibold">M2:</span> Foster a dynamic research
-                environment that advances innovative and impactful solutions for the
-                betterment of global well-being.
-                <br />
-                <br />
-                <span className="font-semibold">M3:</span> Innovate scientific
-                knowledge and Entrepreneurship through academia and Industry
-                collaborations
-              </p>
+            <p className="text-gray-700">
+              <span className="font-semibold">M1:</span> Empowering individuals to
+              ethically harness data and AI through accessible and value-driven
+              curriculum.
+              <br />
+              <br />
+              <span className="font-semibold">M2:</span> Foster a dynamic research
+              environment that advances innovative and impactful solutions for the
+              betterment of global well-being.
+              <br />
+              <br />
+              <span className="font-semibold">M3:</span> Innovate scientific
+              knowledge and Entrepreneurship through academia and Industry
+              collaborations
+            </p>
             </div>
           </div>
-        </section>
+          </section>
 
         {/* 4. About Us */}
         <section
@@ -259,27 +259,239 @@ export default function LandingPage() {
                 Top Recruiting Companies
               </h3>
               <div className="space-y-3">
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
-                  <span className="text-gray-700 font-medium">Microsoft Corporation</span>
+                {/* EY - 30 placements, 4.83 LPA */}
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center space-x-3">
+                    <Image
+                      src="/EY.png"
+                      alt="EY"
+                      width={32}
+                      height={32}
+                      className="rounded-full object-contain bg-white p-1"
+                    />
+                    <div>
+                      <span className="text-gray-700 font-medium">EY</span>
+                      <div className="text-xs text-gray-500">30 placements</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-green-600">4.83 LPA</div>
+                    <div className="text-xs text-gray-500">Avg CTC</div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
-                  <span className="text-gray-700 font-medium">Google LLC</span>
+
+                {/* LTI Mindtree - 25 placements, 4.05 LPA */}
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center space-x-3">
+                    <Image
+                      src="/Ltmindtree.jpg"
+                      alt="LTI Mindtree"
+                      width={32}
+                      height={32}
+                      className="rounded-full object-contain bg-white p-1"
+                    />
+                    <div>
+                      <span className="text-gray-700 font-medium">LTI Mindtree</span>
+                      <div className="text-xs text-gray-500">25 placements</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-green-600">4.05 LPA</div>
+                    <div className="text-xs text-gray-500">Avg CTC</div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
-                  <span className="text-gray-700 font-medium">Amazon Web Services</span>
+
+                {/* Accenture - 21 placements, 4.20 LPA */}
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center space-x-3">
+                    <Image
+                      src="/Accenture.png"
+                      alt="Accenture"
+                      width={32}
+                      height={32}
+                      className="rounded-full object-contain bg-white p-1"
+                    />
+                    <div>
+                      <span className="text-gray-700 font-medium">Accenture</span>
+                      <div className="text-xs text-gray-500">21 placements</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-green-600">4.20 LPA</div>
+                    <div className="text-xs text-gray-500">Avg CTC</div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">4</div>
-                  <span className="text-gray-700 font-medium">IBM Research</span>
+
+                {/* Cognizant - 17 placements, 4.00 LPA */}
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center space-x-3">
+                    <Image
+                      src="/Cognizant.png"
+                      alt="Cognizant"
+                      width={32}
+                      height={32}
+                      className="rounded-full object-contain bg-white p-1"
+                    />
+                    <div>
+                      <span className="text-gray-700 font-medium">Cognizant</span>
+                      <div className="text-xs text-gray-500">17 placements</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-green-600">4.00 LPA</div>
+                    <div className="text-xs text-gray-500">Avg CTC</div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">5</div>
-                  <span className="text-gray-700 font-medium">Intel Corporation</span>
+
+                {/* CGI - 15 placements, 3.94 LPA */}
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center space-x-3">
+                    <Image
+                      src="/CGI.png"
+                      alt="CGI"
+                      width={32}
+                      height={32}
+                      className="rounded-full object-contain bg-white p-1"
+                    />
+                    <div>
+                      <span className="text-gray-700 font-medium">CGI</span>
+                      <div className="text-xs text-gray-500">15 placements</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-green-600">3.94 LPA</div>
+                    <div className="text-xs text-gray-500">Avg CTC</div>
+                  </div>
+                </div>
+
+                {/* 6D Technologies - 13 placements, 5.00 LPA */}
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 bg-blue-50">
+                  <div className="flex items-center space-x-3">
+                    <Image
+                      src="/6DTechnologies.png"
+                      alt="6D Technologies"
+                      width={32}
+                      height={32}
+                      className="rounded-full object-contain bg-white p-1"
+                    />
+                    <div>
+                      <span className="text-gray-700 font-medium">6D Technologies</span>
+                      <div className="text-xs text-gray-500">13 placements</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-green-600">5.00 LPA</div>
+                    <div className="text-xs text-gray-500">Avg CTC</div>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. Service Learning */}
+        <section
+          id="service-learning"
+          className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md scroll-mt-24"
+        >
+          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
+            Service Learning
+          </h2>
+          <p className="text-gray-700 mb-8 text-center max-w-3xl mx-auto">
+            Our students actively engage in community service and social impact projects, 
+            applying their technical skills to solve real-world problems and contribute to society.
+          </p>
+          
+          {/* Service Learning Programs Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {/* Kusuri Mane */}
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-purple-600 font-bold text-lg">K</span>
+                </div>
+                <h3 className="text-xl font-bold text-[#0A1A2F]">Kusuri Mane</h3>
+              </div>
+              <p className="text-gray-700 text-sm">
+                A marketplace for handmade, homemade, fresh-made, local-made, and rural-made products. 
+                Kusuri's meaning is craftsmanship; thus, 'kusuri mane' meaning - 'house of craftsmanship' 
+                provides an encouraging platform for budding women entrepreneurs to interact with consumers firsthand.
+              </p>
+            </div>
+
+            {/* Janapada Loka */}
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-green-600 font-bold text-lg">J</span>
+                </div>
+                <h3 className="text-xl font-bold text-[#0A1A2F]">Janapada Loka</h3>
+              </div>
+              <p className="text-gray-700 text-sm">
+                Located in Ramanagara District, this fantastic museum displays beautiful folk art from 
+                different regions of Karnataka. It offers an excellent opportunity to observe the myriad 
+                folk art of Karnataka and internalize the Heritage and Culture of the state.
+              </p>
+            </div>
+
+            {/* Jungle Lodges and Resorts */}
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-orange-600 font-bold text-lg">J</span>
+                </div>
+                <h3 className="text-xl font-bold text-[#0A1A2F]">Jungle Lodges & Resorts</h3>
+              </div>
+              <p className="text-gray-700 text-sm">
+                Karnataka boasts numerous sights of natural beauty with impressive flora and fauna. 
+                Charming grasslands, dense forests, and glistening rivers are common sights. 
+                October through April is the best time to visit for exquisite natural experiences.
+              </p>
+            </div>
+
+            {/* Ride For Cause */}
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-blue-600 font-bold text-lg">R</span>
+                </div>
+                <h3 className="text-xl font-bold text-[#0A1A2F]">Ride For Cause (RFC)</h3>
+              </div>
+              <p className="text-gray-700 text-sm">
+                A non-profit organization dedicated to helping underprivileged children reach their full 
+                potential—physically, mentally, and emotionally. A group of bikers united to improve 
+                the quality of education for children from rural backgrounds through weekend visits.
+              </p>
+            </div>
+
+            {/* UTHISHTA */}
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-red-600 font-bold text-lg">U</span>
+                </div>
+                <h3 className="text-xl font-bold text-[#0A1A2F]">UTHISHTA</h3>
+              </div>
+              <p className="text-gray-700 text-sm">
+                A committed non-profit organization working towards uplifting and empowering underserved 
+                communities through transformative initiatives in education, healthcare, and livelihood 
+                development, focusing on bridging inequalities.
+              </p>
+            </div>
+
+            {/* Additional Program Placeholder */}
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-indigo-600 font-bold text-lg">+</span>
+                </div>
+                <h3 className="text-xl font-bold text-[#0A1A2F]">More Initiatives</h3>
+              </div>
+              <p className="text-gray-700 text-sm">
+                Our students continue to engage in various community service projects, 
+                applying their technical skills to create meaningful impact in society 
+                and contribute to sustainable development.
+              </p>
             </div>
           </div>
         </section>
@@ -307,21 +519,6 @@ export default function LandingPage() {
           </p>
         </section>
 
-        {/* 6. Service Learning */}
-        <section
-          id="service-learning"
-          className="border-2 border-zinc-950 p-6 rounded-lg bg-white shadow-md scroll-mt-24"
-        >
-          <h2 className="text-2xl font-bold text-center mb-6 text-[#0A1A2F]">
-            Service Learning
-          </h2>
-          <p className="text-gray-700 mb-6 text-center max-w-3xl mx-auto">
-            Our students actively engage in community service and social impact projects, 
-            applying their technical skills to solve real-world problems.
-          </p>
-          
-        </section>
-
         {/* 8. Testimonials */}
         <section
           id="achievements"
@@ -331,12 +528,6 @@ export default function LandingPage() {
             Testimonials
           </h2>
           <div className="mb-6">
-            <p className="text-gray-700 text-center">
-              Dr. Michael Moses T, faculty member at CHRIST (Deemed to be
-              University), Bangalore Kengeri Campus, has been awarded the Chief
-              Minister's Commendation in recognition of his exemplary service and
-              unwavering dedication to his work.
-            </p>
           </div>
           <AnimatedTestimonials
             testimonials={[
@@ -344,19 +535,19 @@ export default function LandingPage() {
                 quote: "The AIML department at CHRIST University has provided me with exceptional opportunities to grow both academically and professionally. The faculty's dedication and the cutting-edge curriculum have been instrumental in my success.",
                 name: "Dr. Michael Moses T",
                 designation: "Faculty Member - Chief Minister's Commendation Awardee",
-                image: "/CU_AI&DS_HOD.png"
+                image: "/placeholder.png"
               },
               {
                 quote: "The hands-on approach to learning and the emphasis on practical applications have made this program truly outstanding. I've gained invaluable skills that are directly applicable in the industry.",
                 name: "Prof. Sarah Johnson",
                 designation: "Industry Partner - Tech Solutions Inc.",
-                image: "/CU_AI&DS_HOD.png"
+                image: "/placeholder.png"
               },
               {
                 quote: "The research opportunities and industry collaborations have opened doors I never thought possible. This department truly prepares students for the future of technology.",
                 name: "Dr. Rajesh Kumar",
                 designation: "Alumni - Senior Data Scientist at Google",
-                image: "/CU_AI&DS_HOD.png"
+                image: "/placeholder.png"
               }
             ]}
             autoplay={true}
